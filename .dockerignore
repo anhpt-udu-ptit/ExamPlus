@@ -1,0 +1,13 @@
+**/.git
+**/.gitignore
+**/node_modules
+**/target
+src-tauri/target
+docs/
+sample_exams/
+.agents/
+*.md
+*.exe
+*.msi
+*.db
+*.sqlite

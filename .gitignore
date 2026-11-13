@@ -1,0 +1,142 @@
+# ==============================================================================
+# ExamPlus - Security Hardened .gitignore
+# Bảo mật toàn diện: Chống lộ lọt thông tin nhạy cảm, token, CSDL, đề thi và AI config
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. BẢO MẬT BÍ MẬT & THÔNG TIN XÁC THỰC (Secrets & Credentials)
+# ------------------------------------------------------------------------------
+# Biến môi trường chứa API Key, JWT secret, DB password
+.env
+.env.*
+!.env.example
+
+# Khóa bảo mật, chứng chỉ SSL/TLS, SSH keys
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.asc
+id_rsa*
+id_ed25519*
+*.pub
+
+# File cấu hình xác thực dịch vụ bên thứ ba (Google Cloud, AWS, Firebase...)
+*credentials*.json
+*service-account*.json
+token*.json
+auth*.json
+secret*.json
+client_secret*.json
+client_secrets*.json
+google_oauth*.json
+ExamPlus_Drive/
+
+# ------------------------------------------------------------------------------
+# 2. BẢO VỆ CƠ SỞ DỮ LIỆU & DỮ LIỆU ĐỀ THI / THÍ SINH CỤC BỘ (Data & Privacy)
+# ------------------------------------------------------------------------------
+# File CSDL SQLite và transaction logs (chứa điểm, tài khoản, đáp án)
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+*.bak
+
+# Dữ liệu thi thực tế, đề thi mẫu của trường học và xuất file kết quả
+sample_exams/
+storage/
+uploads/
+exports/
+data/
+*.xlsx
+*.xls
+*.csv
+
+# File nén chứa dữ liệu mẫu
+*.rar
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# ------------------------------------------------------------------------------
+# 3. CẤU HÌNH AI & TÀI LIỆU NỘI BỘ (AI Instructions & Private Docs)
+# ------------------------------------------------------------------------------
+# Thư mục skill và hướng dẫn nội bộ cho AI Agent (chỉ lưu cục bộ trên máy)
+.agents/
+.agent/
+_agents/
+_agent/
+AGENTS.md
+GEMINI.md
+CLAUDE.md
+.gemini/
+.claude/
+docs/
+
+# ------------------------------------------------------------------------------
+# 4. RUST & TAURI BUILD ARTIFACTS
+# ------------------------------------------------------------------------------
+target/
+src-tauri/target/
+src-tauri/gen/
+**/*.rs.bk
+*.pdb
+*.exe
+*.msi
+*.app
+*.dmg
+*.deb
+*.rpm
+tools/
+
+# ------------------------------------------------------------------------------
+# 5. FRONTEND & NODE DEPENDENCIES
+# ------------------------------------------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+build/
+.vite/
+.output/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ------------------------------------------------------------------------------
+# 6. NHẬT KÝ HỆ THỐNG, DUMP LỖI & CACHE (Logs & Dumps)
+# ------------------------------------------------------------------------------
+logs/
+*.log
+*.dmp
+core.*
+hs_err_pid*
+.cache/
+tmp/
+temp/
+
+# ------------------------------------------------------------------------------
+# 7. METADATA HỆ ĐIỀU HÀNH & EDITOR & SCRATCH
+# ------------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*~
+scratch/
+scratch_*
+.superpowers/
+ExamPlus_Brand_Kit/

@@ -1,0 +1,21 @@
+services:
+  examplus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: examplus-server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - examplus-data:/app/data
+    environment:
+      - RUST_LOG=info
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/v1/teacher/status"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  examplus-data:

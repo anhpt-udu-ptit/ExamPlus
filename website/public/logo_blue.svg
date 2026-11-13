@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="royal-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Blue Squircle Tile - Transparent outside corners -->
+  <rect x="0" y="0" width="1024" height="1024" rx="224" fill="url(#royal-grad)"/>
+
+  <!-- Chubby Academic Ribbon E (White) -->
+  <path d="M 317 335
+    L 537 335
+    C 565 335 587 357 587 385
+    C 587 413 565 435 537 435
+    L 395 435
+    C 380 435 372 443 372 458
+    L 372 482
+    C 372 497 380 505 395 505
+    L 505 505
+    C 530 505 550 525 550 550
+    C 550 575 530 595 505 595
+    L 395 595
+    C 380 595 372 603 372 618
+    L 372 642
+    C 372 657 380 665 395 665
+    L 537 665
+    C 565 665 587 687 587 715
+    C 587 743 565 765 537 765
+    L 317 765
+    C 289 765 267 743 267 715
+    L 267 385
+    C 267 357 289 335 317 335
+    Z" fill="#ffffff"/>
+
+  <!-- Chubby Superscript Plus (White) -->
+  <g id="superscript-plus-white" fill="#ffffff">
+    <rect x="611" y="292" width="146" height="56" rx="28"/>
+    <rect x="656" y="247" width="56" height="146" rx="28"/>
+  </g>
+</svg>

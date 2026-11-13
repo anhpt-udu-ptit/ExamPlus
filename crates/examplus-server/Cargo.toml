@@ -1,0 +1,33 @@
+[package]
+name = "examplus-server"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+examplus-core = { path = "../examplus-core" }
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+chrono.workspace = true
+tracing.workspace = true
+thiserror.workspace = true
+
+# Web Server & WebSockets
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower-http = { version = "0.5", features = ["cors", "trace", "fs"] }
+
+# Embedded assets for client SPA
+rust-embed = "8.5"
+mime_guess = "2.0"
+tempfile = "3.12"
+regex = "1.10"
+qrcode = { version = "0.14", default-features = false, features = ["svg"] }
+sha2 = "0.10"
+base64 = "0.22"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"

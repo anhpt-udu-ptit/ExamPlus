@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <filter id="tile-shadow-chosen" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#1e3a8a" flood-opacity="0.10"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#1e3a8a" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="#ffffff"/>
+
+  <!-- Squircle Tile (832x832, rx=196) -->
+  <rect x="96" y="96" width="832" height="832" rx="196" fill="#ffffff" filter="url(#tile-shadow-chosen)"/>
+  <rect x="96" y="96" width="832" height="832" rx="196" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
+
+  <!-- Chubby Academic Ribbon E (Thick 100px bars, fully rounded pill caps) -->
+  <path d="M 317 335
+    L 537 335
+    C 565 335 587 357 587 385
+    C 587 413 565 435 537 435
+    L 395 435
+    C 380 435 372 443 372 458
+    L 372 482
+    C 372 497 380 505 395 505
+    L 505 505
+    C 530 505 550 525 550 550
+    C 550 575 530 595 505 595
+    L 395 595
+    C 380 595 372 603 372 618
+    L 372 642
+    C 372 657 380 665 395 665
+    L 537 665
+    C 565 665 587 687 587 715
+    C 587 743 565 765 537 765
+    L 317 765
+    C 289 765 267 743 267 715
+    L 267 385
+    C 267 357 289 335 317 335
+    Z" fill="#1d4ed8"/>
+
+  <!-- Chubby Superscript Plus (Thick 56px stroke, 146px cross, fully rounded) -->
+  <g id="superscript-plus-blue" fill="#1d4ed8">
+    <rect x="611" y="292" width="146" height="56" rx="28"/>
+    <rect x="656" y="247" width="56" height="146" rx="28"/>
+  </g>
+</svg>

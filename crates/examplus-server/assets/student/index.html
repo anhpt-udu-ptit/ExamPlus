@@ -1,0 +1,2303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ExamPlus — Phòng Thi Trực Tuyến GDPT 2018</title>
+  <link rel="icon" type="image/x-icon" href="/student/favicon.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+            :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Meta & iOS Grouped Light Theme (Learned from User's Reference Images) */
+      --bg-page: #f0f2f5;            /* Soft neutral canvas (Image 1 & 2) */
+      --bg-surface: #ffffff;         /* Pure crisp white question blocks */
+      --bg-subtle: #e4e6eb;          /* Sub-element pill / secondary button (Image 2) */
+      --bg-subtle-hover: #d8dadf;
+      --bg-pill: #e4e6eb;
+      --bg-pattern: none;
+      --border-subtle: #e4e6eb;      /* Hairline divider */
+      --border-strong: #ced0d4;      /* Stronger border */
+      --border-focus: #0866ff;
+
+      --text-main: #050505;          /* True deep obsidian black */
+      --text-muted: #65676b;         /* Meta secondary slate */
+      --text-dim: #8a8d91;           /* Group label gray */
+
+      /* Vivid Action Blue (Like Messenger primary CTA in Image 5) */
+      --primary: #0866ff;
+      --primary-hover: #0056d6;
+      --primary-text: #ffffff;
+      --primary-light: #e7f3ff;
+
+      --accent-blue: #0866ff;
+      --accent-citrus: #f79009;
+      --accent-meadow: #31a24c;
+
+      --selection-bg: #e7f3ff;
+      --selection-border: #0866ff;
+      --success: #31a24c;            /* Meta Active Green (Image 4) */
+      --success-light: #eafbe7;
+      --warning: #f79009;
+      --warning-light: #fef0c7;
+      --danger: #e41e3f;             /* Meta Red Badge (Image 1) */
+      --danger-light: #fee4e2;
+
+      --card-elevation: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --card-elevation-hover: 0 4px 14px rgba(0, 0, 0, 0.08);
+      --btn-elevation: 0 1px 2px rgba(0, 0, 0, 0.08);
+
+      --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Meta & iOS True Black Dark Theme (Learned from User's Reference Image 3) */
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg-page: #000000;            /* Pure OLED True Black canvas (Image 3) */
+      --bg-surface: #1c1c1e;         /* Elevated Charcoal-Gray card surface (Image 3) */
+      --bg-subtle: #2c2c2e;          /* Sub-element pill / secondary button (Image 3) */
+      --bg-subtle-hover: #3a3a3c;
+      --bg-pill: #2c2c2e;
+      --bg-pattern: none;
+      --border-subtle: #2c2c2e;      /* Subtle dark divider (Image 3) */
+      --border-strong: #3a3a3c;
+      --border-focus: #0084ff;
+
+      --text-main: #ffffff;          /* Pure crisp white text (Image 3) */
+      --text-muted: #b0b3b8;         /* Meta light slate gray (Image 3) */
+      --text-dim: #77797d;           /* Sub-label gray */
+
+      /* Vivid Luminous Blue (Messenger Dark CTA) */
+      --primary: #0084ff;
+      --primary-hover: #0073e6;
+      --primary-text: #ffffff;
+      --primary-light: rgba(0, 132, 255, 0.2);
+
+      --selection-bg: rgba(0, 132, 255, 0.22);
+      --selection-border: #0084ff;
+      --success: #31a24c;
+      --success-light: rgba(49, 162, 76, 0.25);
+      --warning: #f59e0b;
+      --warning-light: rgba(245, 158, 11, 0.25);
+      --danger: #fa383e;
+      --danger-light: rgba(250, 56, 62, 0.25);
+
+      --card-elevation: 0 2px 8px rgba(0, 0, 0, 0.6);
+      --card-elevation-hover: 0 8px 24px rgba(0, 0, 0, 0.85);
+      --btn-elevation: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      background-image: var(--bg-pattern);
+      background-attachment: fixed;
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    button, input, select, textarea {
+      font-family: var(--font-sans);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    /* Cards (Cirrus High-Radius Floating Card) */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--card-elevation);
+    }
+
+    /* Form Controls */
+    .input-group {
+      margin-bottom: 16px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .input-control {
+      width: 100%;
+      height: 44px;
+      padding: 0 16px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 9999px;
+      background-color: var(--bg-surface) !important;
+      color: var(--text-main);
+      font-size: 14.5px;
+      outline: none;
+      transition: all 0.15s ease;
+    }
+    .input-control:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Cirrus Obsidian Pill Buttons */
+    .btn {
+      height: 42px;
+      padding: 0 22px;
+      border-radius: 9999px;
+      background: var(--primary);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: var(--btn-elevation);
+      transition: all 0.15s var(--spring-smooth);
+    }
+    .btn.btn-demo-direct {
+      width: 100%;
+      margin-top: 12px;
+      height: 46px;
+      border-radius: 9999px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+    .btn.btn-demo-direct:hover {
+      background: rgba(0, 86, 210, 0.06);
+      color: var(--primary-hover);
+      border-color: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(0, 86, 210, 0.14);
+    }
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(11, 15, 25, 0.22);
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16, 42, 67, 0.25);
+    }
+    .btn-secondary {
+      background: var(--bg-pill);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      box-shadow: 0 1px 2px rgba(16, 42, 67, 0.04);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-surface);
+      transform: translateY(-1px);
+      border-color: var(--text-dim);
+    }
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    /* Header Bar */
+    .header-bar {
+      position: sticky;
+      top: 46px;
+      z-index: 50;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 640px) {
+      .header-bar {
+        padding: 8px 10px;
+        gap: 6px;
+      }
+      .header-brand #examHeaderTitle {
+        display: none;
+      }
+      .header-chip {
+        height: 32px !important;
+        padding: 0 8px !important;
+        font-size: 11.5px !important;
+        gap: 4px !important;
+      }
+      .header-chip-timer {
+        font-size: 13.5px !important;
+        padding: 0 8px !important;
+      }
+      .header-chips-group {
+        gap: 4px !important;
+      }
+      .header-left {
+        gap: 6px !important;
+      }
+      .header-chips-group .btn {
+        height: 32px !important;
+        padding: 0 10px !important;
+        font-size: 12px !important;
+      }
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      min-width: 0;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .header-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      gap: 1px;
+    }
+    /* Đồng hồ thời gian nằm chính giữa: tối giản, nền trung tính không màu xanh (Ảnh 2) */
+    .header-chip-timer-clean {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 800;
+      height: 33px;
+      padding: 0 16px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      cursor: default;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+    .header-chip-timer-clean.warning {
+      background: var(--warning-light) !important;
+      border-color: var(--warning) !important;
+      color: var(--warning) !important;
+      animation: subtlePulse 1.4s infinite ease-in-out;
+    }
+    /* Mũi tên nhỏ hướng xuống đặt ngay bên dưới đồng hồ (Ảnh 2): Bấm vào đây để xem câu hỏi */
+    .header-arrow-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 16px;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      border-radius: 4px;
+      transition: color 0.18s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .header-arrow-btn:hover {
+      color: var(--primary);
+      transform: translateY(2px);
+    }
+    .header-arrow-btn.open svg {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+    .header-arrow-btn svg {
+      transition: transform 0.22s ease;
+      stroke-width: 3;
+    }
+      animation: subtlePulse 1.4s infinite ease-in-out;
+    }
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.04); opacity: 0.88; }
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      flex: 1;
+    }
+
+    /* Clean Centered Exam Layout (Đã loại bỏ thanh dọc bên phải) */
+    .exam-layout {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 20px 110px; /* Chừa không gian cho thanh ngang dưới cùng */
+    }
+    .exam-main {
+      width: 100%;
+      max-width: 860px;
+    }
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 80;
+      height: 48px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 0 20px;
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.45);
+      cursor: pointer;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (max-width: 900px) {
+      .palette-toggle-btn {
+        display: inline-flex;
+      }
+    }
+
+    .palette-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 16px 0 8px;
+    }
+    .palette-section-title:first-child { margin-top: 0; }
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .palette-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .palette-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .palette-btn.active-view {
+      border: 2.5px solid var(--primary) !important;
+      outline: none !important;
+    }
+    .palette-btn.done {
+      background: var(--success-light);
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .palette-btn.incomplete {
+      background: var(--warning-light);
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+
+    .palette-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-weight: 500; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+    .legend-dot.done { background: var(--success); }
+    .legend-dot.incomplete { background: var(--warning); }
+    .legend-dot.empty { background: var(--border-subtle); }
+
+    /* Question Block with Smooth Enter Transition */
+    .question-block {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      scroll-margin-top: 5rem;
+      box-shadow: var(--card-elevation);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      animation: slideNextIn 0.22s var(--spring-smooth) forwards;
+    }
+    @keyframes slideNextIn {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .question-block.focused-q {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.18);
+    }
+    .question-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: var(--primary-light);
+      border: 1px solid rgba(29, 78, 216, 0.2);
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .question-content {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+    .choice-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-main);
+      min-width: 0;
+      flex: 1;
+    }
+    .question-block img.math-formula,
+    .choice-text img.math-formula,
+    .tf-content img.math-formula {
+      vertical-align: middle;
+      height: auto;
+      min-height: 1.25em;
+      max-height: 3.6em;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+      display: inline-block;
+      margin: 0 3px;
+      cursor: zoom-in;
+      transition: transform 0.15s ease;
+    }
+    .question-block img.math-formula:hover,
+    .choice-text img.math-formula:hover,
+    .tf-content img.math-formula:hover {
+      transform: scale(1.03);
+    }
+    /* Lightbox Zoom for Student */
+    .formula-lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.18s ease;
+    }
+    .formula-lightbox-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px 40px;
+      max-width: 92vw;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.45);
+      overflow: auto;
+    }
+    .formula-lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.15s ease;
+    }
+    .formula-lightbox-close:hover {
+      background: var(--danger-light);
+      color: var(--danger);
+      transform: scale(1.08);
+    }
+    .formula-lightbox-img {
+      max-width: 85vw;
+      max-height: 72vh;
+      object-fit: contain;
+      transform: scale(1.7);
+      transform-origin: center;
+      padding: 24px;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.06));
+    }
+    [data-theme="dark"] .formula-lightbox-img {
+      filter: invert(0.94) hue-rotate(180deg) drop-shadow(0 2px 8px rgba(255,255,255,0.06));
+    }
+    .question-block img.exam-figure {
+      display: block;
+      max-width: 90%;
+      max-height: 360px;
+      margin: 14px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      background: white;
+      padding: 6px;
+      object-fit: contain;
+    }
+    math {
+      font-family: 'Cambria Math', 'STIX Two Math', 'Times New Roman', serif;
+      font-size: 1.06em;
+    }
+    [data-theme="dark"] .question-block img.math-formula,
+    [data-theme="dark"] .choice-text img.math-formula,
+    [data-theme="dark"] .tf-content img.math-formula {
+      filter: invert(0.94) hue-rotate(180deg);
+    }
+
+    /* Option Grid & Tactile Choice Tiles */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    @media (min-width: 640px) {
+      .options-grid { grid-template-columns: 1fr; }
+    }
+    .choice-tile {
+      min-height: 54px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border-subtle);
+      border-bottom: 2px solid var(--border-subtle);
+      background: var(--bg-surface);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      transition: all 0.18s var(--spring-smooth);
+      user-select: none;
+    }
+    .choice-tile:hover {
+      border-color: var(--primary);
+      background: var(--selection-bg);
+      transform: translateY(-1.5px);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.08);
+    }
+    .choice-tile:active {
+      transform: scale(0.985);
+    }
+    .choice-tile.selected {
+      border-color: var(--primary);
+      background: var(--selection-bg);
+      box-shadow: 0 0 0 2px var(--primary), 0 2px 8px rgba(29, 78, 216, 0.15);
+    }
+    .key-circle {
+      width: 32px;
+      height: 32px;
+      min-width: 32px;
+      border-radius: 9999px;
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      text-align: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+      border: 1px solid var(--border-subtle);
+    }
+    .choice-tile.selected .key-circle {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.35);
+    }
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      text-align: center;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .choice-tile.selected .key-circle {
+      background: var(--primary);
+      color: #ffffff;
+    }
+    .choice-text {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-main);
+      flex: 1;
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    /* Part 2: True/False List */
+    .tf-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .tf-item {
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: var(--bg-surface);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    @media (min-width: 640px) {
+      .tf-item { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .tf-content { flex: 1; font-size: 15px; line-height: 1.5; color: var(--text-main); }
+    .tf-actions { display: inline-flex; gap: 8px; align-items: center; align-self: flex-end; }
+    @media (min-width: 640px) { .tf-actions { align-self: center; } }
+    .tf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.15s;
+      user-select: none;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+    }
+    .tf-btn:hover { background: var(--border-subtle); }
+    .tf-btn input[type="radio"] { margin: 0; }
+    .tf-btn.active-true,
+    .tf-btn:has(input[value="true"]:checked) {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: var(--success);
+    }
+    .tf-btn.active-false,
+    .tf-btn:has(input[value="false"]:checked) {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    /* Part 3: Short Answer */
+    .short-answer-group { margin-top: 14px; }
+
+    /* Watermark & Anti-Cheat Overlay (Phân bổ thưa thoáng, nhẹ nhàng chuẩn WCAG) */
+    .watermark {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      opacity: 0.04;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-content: space-evenly;
+      align-items: center;
+      font-size: 1.05rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      transform: rotate(-22deg) scale(1.05);
+      overflow: hidden;
+    }
+    .watermark span {
+      padding: 70px 50px;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .violation-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      color: white;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 24px;
+    }
+
+    /* Centered Submit Confirmation Modal */
+    .modal-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .submit-dialog-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      max-width: 440px;
+      width: 100%;
+      padding: 28px 24px 22px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: modalPopIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPopIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .submit-dialog-badge {
+      margin-bottom: 14px;
+    }
+    .submit-dialog-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .submit-dialog-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .submit-dialog-actions {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+    .btn-dialog-secondary {
+      flex: 1;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-dialog-secondary:hover {
+      background: var(--border-subtle);
+    }
+    .btn-dialog-primary {
+      flex: 1;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary);
+      border: 1px solid transparent;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+    }
+    .btn-dialog-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 18px rgba(29, 78, 216, 0.45);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  
+    /* ======================================================== */
+    /* TOP DROPDOWN PALETTE PANEL & FLOATING SUBMIT FAB         */
+    /* (Theo thiết kế trực quan người dùng yêu cầu - Ảnh 2, 3, 4)*/
+    /* ======================================================== */
+    .top-palette-scrim {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 54px;
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    .top-palette-scrim.show {
+      display: flex;
+      opacity: 1;
+    }
+    .top-palette-card {
+      width: 324px;
+      max-width: 92vw;
+      max-height: calc(100vh - 76px);
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px 18px 18px;
+      overflow-y: auto;
+      transform: translateY(-16px) scale(0.97);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+    .top-palette-scrim.show .top-palette-card {
+      transform: translateY(0) scale(1);
+    }
+    .top-palette-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+      gap: 8px;
+    }
+    .top-palette-title {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .palette-counter-pill {
+      background: #0866ff;
+      color: #ffffff;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 2px 6px rgba(8, 102, 255, 0.3);
+      flex-shrink: 0;
+    }
+    .top-palette-content {
+      overflow-y: auto;
+      flex: 1;
+      padding: 2px 0;
+    }
+    .palette-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 14px 0 8px;
+    }
+    .palette-section-title:first-child { margin-top: 2px; }
+    .palette-grid {
+      display: grid !important;
+      grid-template-columns: repeat(5, 1fr) !important;
+      gap: 6px !important;
+    }
+    .palette-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .palette-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+    .palette-btn.active-view {
+      border: 2.5px solid var(--primary) !important;
+      background: rgba(8, 102, 255, 0.08) !important;
+      color: var(--primary) !important;
+      box-shadow: 0 0 0 1.5px var(--primary) !important;
+      outline: none !important;
+      z-index: 5;
+    }
+    .palette-btn.done {
+      background: var(--success-light) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+    }
+    .palette-btn.incomplete {
+      background: var(--warning-light) !important;
+      border-color: var(--warning) !important;
+      color: var(--warning) !important;
+    }
+    .palette-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 12px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    .legend-dot.done { background: var(--success); }
+    .legend-dot.incomplete { background: var(--warning); }
+    .legend-dot.empty { background: var(--border-subtle); }
+
+    /* Floating Submit Button (Giữ nút nộp tròn mũi tên - Ảnh phản hồi 4) */
+    .floating-submit-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 6px 20px rgba(8, 102, 255, 0.45), 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 900;
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .floating-submit-fab:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 10px 28px rgba(8, 102, 255, 0.6);
+    }
+    .floating-submit-fab:active {
+      transform: scale(0.95);
+    }
+    .floating-submit-fab svg {
+      stroke: #ffffff;
+      transition: transform 0.2s ease;
+    }
+    .floating-submit-fab:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Palette Button Active Focus State (Viền focus trọn vẹn 4 cạnh, không bị cắt góc trái - Ảnh 1) */
+    .palette-btn.active-view {
+      border: 2.5px solid var(--primary) !important;
+      background: rgba(8, 102, 255, 0.1) !important;
+      color: var(--primary) !important;
+      box-shadow: 0 0 0 2px rgba(8, 102, 255, 0.25) !important;
+      outline: none !important;
+      z-index: 5;
+    }
+    .palette-btn.done {
+      background: var(--success-light) !important;
+      border-color: var(--success) !important;
+      color: var(--success) !important;
+    }
+    .palette-btn.done.active-view {
+      border: 2.5px solid var(--primary) !important;
+      background: var(--success-light) !important;
+      color: var(--success) !important;
+      box-shadow: 0 0 0 2px rgba(8, 102, 255, 0.25) !important;
+      outline: none !important;
+      z-index: 5;
+    }
+    .palette-btn.incomplete.active-view {
+      border: 2.5px solid var(--primary) !important;
+      background: var(--warning-light) !important;
+      color: var(--warning) !important;
+      box-shadow: 0 0 0 2px rgba(8, 102, 255, 0.25) !important;
+      outline: none !important;
+      z-index: 5;
+    }
+
+</style>
+
+  <script>
+    window.SAMPLE_EXAM_PAPER = {"title": "Đề Khảo Sát Chất Lượng Môn Vật Lý — Chuẩn GDPT 2018 (Đề 101)", "subject": "Vật Lý", "duration_minutes": 50, "remaining_seconds": 3000, "questions": [{"id": 1, "part_type": "PART_1", "display_number": 1, "content_html": "Một vật dao động điều hòa theo phương trình <svg style='vertical-align:middle;' width='110' height='22' viewBox='0 0 110 22'><text x='0' y='16' font-size='14' font-family='serif' font-style='italic'>x = 4cos(2πt + π/3)</text></svg> (cm). Biên độ dao động của vật là", "options": [{"label": "A", "content_html": "4 cm", "is_correct": true}, {"label": "B", "content_html": "8 cm", "is_correct": false}, {"label": "C", "content_html": "2 cm", "is_correct": false}, {"label": "D", "content_html": "4π cm", "is_correct": false}]}, {"id": 2, "part_type": "PART_1", "display_number": 2, "content_html": "Hệ số công suất của đoạn mạch RLC nối tiếp có tính cảm kháng khi tần số dòng điện tăng thì", "options": [{"label": "A", "content_html": "luôn tăng", "is_correct": false}, {"label": "B", "content_html": "luôn giảm", "is_correct": true}, {"label": "C", "content_html": "không đổi", "is_correct": false}, {"label": "D", "content_html": "tăng rồi giảm", "is_correct": false}]}, {"id": 3, "part_type": "PART_1", "display_number": 3, "content_html": "Khi nói về sóng cơ, phát biểu nào sau đây là <strong>sai</strong>?", "options": [{"label": "A", "content_html": "Sóng cơ lan truyền được trong chất rắn, lỏng, khí", "is_correct": false}, {"label": "B", "content_html": "Sóng cơ truyền được trong chân không", "is_correct": true}, {"label": "C", "content_html": "Sóng ngang truyền được trong chất rắn và bề mặt chất lỏng", "is_correct": false}, {"label": "D", "content_html": "Sóng dọc truyền được trong cả chất rắn, lỏng và khí", "is_correct": false}]}, {"id": 4, "part_type": "PART_1", "display_number": 4, "content_html": "Nhiệt lượng cần cung cấp để 1 kg chất lỏng hóa hơi hoàn toàn ở nhiệt độ sôi gọi là", "options": [{"label": "A", "content_html": "Nhiệt dung riêng", "is_correct": false}, {"label": "B", "content_html": "Nhiệt nóng chảy riêng", "is_correct": false}, {"label": "C", "content_html": "Nhiệt hóa hơi riêng", "is_correct": true}, {"label": "D", "content_html": "Nhiệt lượng tỏa ra", "is_correct": false}]}, {"id": 5, "part_type": "PART_1", "display_number": 5, "content_html": "Công thức tính nhiệt lượng trong quá trình truyền nhiệt khi vật thay đổi nhiệt độ là", "options": [{"label": "A", "content_html": "Q = m.c.ΔT", "is_correct": true}, {"label": "B", "content_html": "Q = m.L", "is_correct": false}, {"label": "C", "content_html": "Q = m.λ", "is_correct": false}, {"label": "D", "content_html": "Q = I²Rt", "is_correct": false}]}, {"id": 6, "part_type": "PART_1", "display_number": 6, "content_html": "Câu hỏi trắc nghiệm số 6: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 7, "part_type": "PART_1", "display_number": 7, "content_html": "Câu hỏi trắc nghiệm số 7: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 8, "part_type": "PART_1", "display_number": 8, "content_html": "Câu hỏi trắc nghiệm số 8: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 9, "part_type": "PART_1", "display_number": 9, "content_html": "Câu hỏi trắc nghiệm số 9: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 10, "part_type": "PART_1", "display_number": 10, "content_html": "Câu hỏi trắc nghiệm số 10: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 11, "part_type": "PART_1", "display_number": 11, "content_html": "Câu hỏi trắc nghiệm số 11: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 12, "part_type": "PART_1", "display_number": 12, "content_html": "Câu hỏi trắc nghiệm số 12: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 13, "part_type": "PART_1", "display_number": 13, "content_html": "Câu hỏi trắc nghiệm số 13: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 14, "part_type": "PART_1", "display_number": 14, "content_html": "Câu hỏi trắc nghiệm số 14: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 15, "part_type": "PART_1", "display_number": 15, "content_html": "Câu hỏi trắc nghiệm số 15: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 16, "part_type": "PART_1", "display_number": 16, "content_html": "Câu hỏi trắc nghiệm số 16: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 17, "part_type": "PART_1", "display_number": 17, "content_html": "Câu hỏi trắc nghiệm số 17: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 18, "part_type": "PART_1", "display_number": 18, "content_html": "Câu hỏi trắc nghiệm số 18: Một khối khí lí tưởng thực hiện quá trình đẳng nhiệt ở nhiệt độ T. Áp suất p tỉ lệ nghịch với đại lượng nào?", "options": [{"label": "A", "content_html": "Thể tích V của khối khí", "is_correct": true}, {"label": "B", "content_html": "Khối lượng m của khí", "is_correct": false}, {"label": "C", "content_html": "Nhiệt độ tuyệt đối T", "is_correct": false}, {"label": "D", "content_html": "Mật độ phân tử khí", "is_correct": false}]}, {"id": 19, "part_type": "PART_2", "display_number": 19, "content_html": "Một lượng khí lí tưởng chứa trong xilanh có pit-tông di chuyển được. Khối khí được nung nóng đẳng áp, thể tích tăng từ 2 lít lên 3 lít.", "options": [{"label": "a", "content_html": "Nhiệt độ tuyệt đối của khối khí tăng lên 1,5 lần.", "is_correct": true}, {"label": "b", "content_html": "Khối khí thực hiện công âm lên môi trường bên ngoài.", "is_correct": false}, {"label": "c", "content_html": "Nội năng của khối khí tăng trong quá trình này.", "is_correct": true}, {"label": "d", "content_html": "Nhiệt lượng khối khí nhận vào đúng bằng độ biến thiên nội năng.", "is_correct": false}]}, {"id": 20, "part_type": "PART_2", "display_number": 20, "content_html": "Thí nghiệm đo nhiệt dung riêng của nước sử dụng nhiệt lượng kế và điện trở nhiệt:", "options": [{"label": "a", "content_html": "Nhiệt lượng do dây điện trở tỏa ra được tính theo công thức Q = U.I.t.", "is_correct": true}, {"label": "b", "content_html": "Bỏ qua nhiệt lượng hao phí truyền ra môi trường ngoài.", "is_correct": true}, {"label": "c", "content_html": "Nước sôi ở đúng 100°C trong mọi điều kiện áp suất.", "is_correct": false}, {"label": "d", "content_html": "Nhiệt dung riêng của nước phụ thuộc vào khối lượng nước lấy trong cốc.", "is_correct": false}]}, {"id": 21, "part_type": "PART_2", "display_number": 21, "content_html": "Từ trường đều có vectơ cảm ứng từ B vuông góc với mặt phẳng khung dây dẫn phẳng diện tích S:", "options": [{"label": "a", "content_html": "Từ thông qua khung dây đạt giá trị cực đại khi mặt phẳng khung vuông góc với đường sức từ.", "is_correct": true}, {"label": "b", "content_html": "Khi từ thông qua khung biến thiên sinh ra dòng điện cảm ứng.", "is_correct": true}, {"label": "c", "content_html": "Chiều dòng điện cảm ứng có tác dụng chống lại sự biến thiên từ thông ban đầu.", "is_correct": true}, {"label": "d", "content_html": "Suất điện động cảm ứng có độ lớn tỉ lệ nghịch với tốc độ biến thiên từ thông.", "is_correct": false}]}, {"id": 22, "part_type": "PART_2", "display_number": 22, "content_html": "Hạt nhân nguyên tử Urani <svg style='vertical-align:middle;' width='45' height='22' viewBox='0 0 45 22'><text x='0' y='18' font-size='14' font-family='sans-serif'>²³⁵₉₂U</text></svg> phân hạch khi hấp thụ nơtron chậm:", "options": [{"label": "a", "content_html": "Phản ứng phân hạch là phản ứng hạt nhân tỏa năng lượng cực lớn.", "is_correct": true}, {"label": "b", "content_html": "Mỗi phân hạch giải phóng trung bình từ 2 đến 3 hạt nơtron mới.", "is_correct": true}, {"label": "c", "content_html": "Để tạo ra phản ứng dây chuyền tự duy trì, hệ số nhân nơtron k phải nhỏ hơn 1.", "is_correct": false}, {"label": "d", "content_html": "Năng lượng tỏa ra chủ yếu dưới dạng động năng của các mảnh phân hạch.", "is_correct": true}]}, {"id": 23, "part_type": "PART_3", "display_number": 23, "content_html": "Một ấm đun nước điện có công suất 1000 W đun sôi 1,5 lít nước từ 20°C. Biết nhiệt dung riêng của nước là c = 4200 J/kg.K, bỏ qua nhiệt hao phí. Thời gian đun sôi nước là bao nhiêu giây? <em>(Làm tròn đến hàng đơn vị)</em>", "correct_answer": "504"}, {"id": 24, "part_type": "PART_3", "display_number": 24, "content_html": "Một con lắc lò xo có độ cứng k = 100 N/m mang vật nặng m = 100 g dao động điều hòa. Tần số góc dao động của vật bằng bao nhiêu rad/s?", "correct_answer": "31.6"}, {"id": 25, "part_type": "PART_3", "display_number": 25, "content_html": "Một khung dây phẳng có diện tích 20 cm² đặt trong từ trường đều có cảm ứng từ B = 0,05 T. Từ thông qua khung dây khi vectơ cảm ứng từ hợp với vectơ pháp tuyến góc 60° là bao nhiêu micro-vêbe (μWb)?", "correct_answer": "50"}, {"id": 26, "part_type": "PART_3", "display_number": 26, "content_html": "Một khối khí lí tưởng có thể tích 4 lít ở áp suất 1 atm được nén đẳng nhiệt đến thể tích 2 lít. Áp suất của khối khí sau khi nén bằng bao nhiêu atm?", "correct_answer": "2"}, {"id": 27, "part_type": "PART_3", "display_number": 27, "content_html": "Nhiệt lượng tỏa ra khi làm nguội 2 kg nhôm từ 100°C xuống 20°C biết nhiệt dung riêng của nhôm là 880 J/kg.K bằng bao nhiêu kilôjun (kJ)? <em>(Làm tròn đến 1 chữ số thập phân)</em>", "correct_answer": "140.8"}, {"id": 28, "part_type": "PART_3", "display_number": 28, "content_html": "Cho phản ứng nhiệt hạch tỏa ra năng lượng 17,6 MeV. Năng lượng này tương đương bao nhiêu picôjun (pJ)? (1 eV = 1,6.10⁻¹⁹ J). <em>(Lấy 3 chữ số thập phân)</em>", "correct_answer": "2.816"}]};
+  </script>
+
+</head>
+<body>
+
+  <!-- Interactive Demo Switcher Bar for Review -->
+  <div id="demoNavToolbar" style="position: sticky; top: 0; z-index: 99999; background: var(--bg-surface); border-bottom: 2px solid var(--border-subtle); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; background: #2563eb; color: #fff; padding: 4px 10px; border-radius: 9999px;">Demo Switcher</span>
+      <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">Xem thử các màn hình học sinh:</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+      <button type="button" class="demo-nav-btn" onclick="showDemoScreen('login')" style="padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main);">🔑 1. Đăng Nhập</button>
+      <button type="button" class="demo-nav-btn" onclick="showDemoScreen('lobby')" style="padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main);">⏳ 2. Sảnh Chờ Lobby</button>
+      <button type="button" class="demo-nav-btn active-demo" onclick="showDemoScreen('exam')" style="padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; border: 1.5px solid #2563eb; background: #2563eb; color: #fff;">📝 3. Màn Hình Làm Bài</button>
+      <button type="button" class="demo-nav-btn" onclick="showDemoScreen('result')" style="padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border-subtle); background: var(--bg-subtle); color: var(--text-main);">🏆 4. Xem Kết Quả Điểm</button>
+      <button type="button" onclick="toggleStudentTheme()" style="padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid var(--border-subtle); background: var(--bg-surface); color: var(--text-main);" title="Đổi theme Sáng / Tối">🌓 Theme</button>
+    </div>
+  </div>
+
+
+  <!-- Dynamic Anti-Cheat Watermark -->
+  <div id="watermark" class="watermark"></div>
+
+  <!-- Violation Overlay -->
+  <div id="violationOverlay" class="violation-overlay">
+    <div style="width: 56px; height: 56px; border-radius: 14px; background: rgba(220, 38, 38, 0.2); display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <h2 style="color: #ef4444; font-size: 1.75rem; margin-bottom: 0.75rem;">CẢNH BÁO VI PHẠM PHÒNG THI</h2>
+    <p style="font-size: 1.1rem; max-width: 560px; margin-bottom: 2rem; color: #cbd5e1; line-height: 1.6;">
+      Hệ thống phát hiện bạn đã rời khỏi màn hình làm bài hoặc thoát chế độ toàn màn hình. Sự kiện này đã được ghi lại và gửi đến giám thị!
+    </p>
+    <button id="resumeBtn" class="btn">Quay Lại Làm Bài</button>
+  </div>
+
+  <!-- Custom In-Page Submission Confirmation Modal -->
+  <div id="submitModal" class="modal-scrim" style="display: none;">
+    <div class="submit-dialog-box">
+      <div class="submit-dialog-badge">
+        <img src="/logo_blue.svg" alt="ExamPlus" style="width: 44px; height: 44px; border-radius: 10px; box-shadow: 0 4px 10px rgba(29, 78, 216, 0.25);">
+      </div>
+      <h3 class="submit-dialog-title">Xác Nhận Nộp Bài Thi</h3>
+      <div class="submit-dialog-sub" id="submitModalSummary">
+        Bạn đã hoàn thành <strong>-- / -- câu</strong>.<br>
+        Vẫn còn <strong>0 câu</strong> chưa điền đáp án.<br>
+        Thời gian còn <strong id="submitModalTimeLeft">--:--</strong>.
+      </div>
+      <div class="submit-dialog-actions">
+        <button id="modalCancelBtn" class="btn-dialog-secondary" onclick="closeSubmitModal()">Làm Tiếp</button>
+        <button id="modalConfirmBtn" class="btn-dialog-primary" onclick="confirmSubmitExam()">Nộp Bài</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Palette Toggle Button (Moved to Header) -->
+  <button id="paletteToggleBtn" style="display: none !important;" class="palette-toggle-btn" onclick="toggleMobilePalette()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+    <span id="paletteMobileSummary">Danh sách câu hỏi</span>
+  </button>
+
+  <!-- App Views Container -->
+  <div id="app">
+
+    <!-- View 1: Login / Join -->
+    <div id="loginView" class="container" style="max-width: 440px; margin-top: 8vh;">
+      <div class="card" style="text-align: center;">
+        <div style="margin-bottom: 16px;">
+          <img src="/logo_blue.svg" alt="ExamPlus" style="width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);">
+        </div>
+        <h1 style="color: var(--text-main); font-size: 22px; font-weight: 800; margin-bottom: 4px;">ExamPlus</h1>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Hệ Thống Thi Trực Tuyến Chuẩn GDPT 2018</p>
+        
+        <div id="roomBadge" style="display:none; align-items:center; justify-content:center; gap:6px; background:rgba(37,99,235,0.12); color:#60a5fa; border:1px solid rgba(59,130,246,0.3); padding:6px 14px; border-radius:9999px; font-size:12px; font-weight:600; margin-bottom:18px;"></div>
+        
+        <form id="joinForm" style="text-align: left;">
+          <div class="input-group">
+            <label for="studentCode">Số Báo Danh (SBD)</label>
+            <input type="text" id="studentCode" class="input-control" placeholder="Ví dụ: 11001" required autocomplete="off">
+          </div>
+          <div class="input-group">
+            <label for="fullName">Họ và Tên Thí Sinh</label>
+            <input type="text" id="fullName" class="input-control" placeholder="Ví dụ: Nguyễn Văn An" required autocomplete="off">
+          </div>
+          <div class="input-group">
+            <label for="className">Lớp</label>
+            <input type="text" id="className" class="input-control" placeholder="Ví dụ: 12A1" required autocomplete="off">
+          </div>
+          <button type="submit" class="btn" style="width: 100%; margin-top: 12px; height: 46px; font-size: 15px;">
+            Vào Phòng Thi
+          </button>
+        
+          <button type="button" onclick="enterDemoExam()" class="btn btn-demo-direct">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <span>Phòng Thi Mẫu</span>
+          </button>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- View 2: Lobby / Waiting Room -->
+    <div id="lobbyView" class="container" style="display: none; max-width: 560px; margin-top: 12vh; text-align: center;">
+      <div class="card">
+        <div style="margin-bottom: 16px;">
+          <img src="/logo_blue.svg" alt="ExamPlus" style="width: 56px; height: 56px; border-radius: 14px; box-shadow: 0 4px 14px rgba(29, 78, 216, 0.25);">
+        </div>
+        <h2 id="lobbyExamTitle" style="font-size: 20px; font-weight: 800; color: var(--text-main);">Kỳ Thi Khảo Sát GDPT 2018</h2>
+        <p id="lobbyStudentInfo" style="color: var(--text-muted); font-size: 14px; margin-top: 4px; margin-bottom: 24px;"></p>
+        
+        <div style="padding: 24px; background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: 14px; margin-bottom: 20px;">
+          <h3 style="color: var(--primary); font-size: 16px; font-weight: 800; margin-bottom: 8px;">
+            PHÒNG THI ĐANG CHỜ GIÁM THỊ BẮT ĐẦU
+          </h3>
+          <p style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+            Vui lòng giữ nguyên màn hình này. Đề thi sẽ tự động kích hoạt ngay khi giám thị phát lệnh tính giờ.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 3: Exam Paper Screen -->
+    <div id="examView" style="display: none;">
+      <!-- Sticky Header: Clean & Focused (Logo bên trái, Thời gian & Mũi tên rõ ràng ở chính giữa) -->
+      <header class="header-bar">
+        <div class="header-left">
+          <div class="header-brand" title="ExamPlus">
+            <img src="/logo_blue.svg" alt="ExamPlus" style="width: 28px; height: 28px; border-radius: 7px;">
+          </div>
+          <!-- Ẩn tên đề và thông tin thí sinh khỏi thanh trên theo yêu cầu -->
+          <span id="examHeaderTitle" style="display: none;">Đề Khảo Sát GDPT 2018</span>
+          <span id="examHeaderStudent" style="display: none;">SBD: 11001</span>
+        </div>
+
+        <div class="header-center">
+          <!-- Khối hiển thị thời gian làm bài (Ảnh 2: Chỉ hiển thị thời gian, không bấm để mở câu hỏi) -->
+          <div class="header-chip-timer-clean" id="timerBadge" title="Thời gian làm bài còn lại">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="timerText">--:--</span>
+          </div>
+          <!-- Mũi tên nhỏ hướng xuống đặt ngay bên dưới đồng hồ (Ảnh 2: Bấm vào mũi tên để xem danh sách câu hỏi) -->
+          <button type="button" class="header-arrow-btn" id="headerArrowBtn" onclick="toggleTopPaletteCard(event)" title="Xem danh sách câu hỏi" aria-label="Xem danh sách câu hỏi">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="header-right">
+          <!-- Cân bằng khoảng trống bên phải để đồng hồ nằm chuẩn 100% chính giữa -->
+        </div>
+      </header>
+
+      <!-- Top Dropdown Question Palette Panel (Bảng Điều Hướng Câu Hỏi thả xuống từ Header - Ảnh 2, 3, 4) -->
+      <div class="top-palette-scrim" id="topPaletteScrim" onclick="closeTopPaletteCard()">
+        <div class="top-palette-card" id="topPaletteCard" onclick="event.stopPropagation()">
+          <div class="top-palette-header">
+            <h3 class="top-palette-title">Bảng Điều Hướng Câu Hỏi</h3>
+            <div class="palette-counter-pill" id="paletteCounterPill" title="Tiến độ làm bài">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+              <span id="paletteCounterText">0/28 Câu đã làm</span>
+            </div>
+          </div>
+          <div class="top-palette-content" id="topPaletteContent">
+            <!-- Dynamically populated with all 28 questions in 5 columns -->
+          </div>
+          <div class="palette-legend">
+            <div class="legend-item"><span class="legend-dot done"></span> Đã hoàn thành</div>
+            <div class="legend-item"><span class="legend-dot incomplete"></span> Chưa làm đủ ý (Đúng/Sai)</div>
+            <div class="legend-item"><span class="legend-dot empty"></span> Chưa trả lời</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Layout (Đã loại bỏ thanh dọc, bố cục canh giữa thoáng đãng) -->
+      <div class="exam-layout">
+        <!-- Main Questions Feed -->
+        <main class="exam-main" id="questionsContainer">
+          <!-- Rendered dynamically -->
+        </main>
+      </div>
+
+      <!-- Floating Submit Button: Small Arrow inside Circle (giữ nút nộp - Ảnh phản hồi) -->
+      <button type="button" class="floating-submit-fab" id="submitBtn" onclick="openSubmitModal()" title="Nộp Bài Thi" aria-label="Nộp bài thi">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- View 4: Result Screen -->
+    <div id="resultView" class="container" style="display: none; max-width: 520px; margin-top: 10vh; text-align: center;">
+      <div class="card">
+        <div style="width: 56px; height: 56px; border-radius: 14px; background: #ecfdf5; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">NỘP BÀI THI THÀNH CÔNG!</h2>
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 24px;">Bài thi của bạn đã được ghi nhận vào hệ thống máy chủ an toàn.</p>
+        
+        <div style="padding: 24px; background: var(--bg-subtle); border-radius: 14px; margin-bottom: 24px;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Điểm Số Của Bạn</div>
+          <div id="resultTotalScore" style="font-size: 42px; font-weight: 800; color: var(--primary); margin: 6px 0;">--</div>
+          
+          <div id="resultScoreBreakdown" style="display: none; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle);">
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">Phần I</div>
+              <div id="resultPart1Score" style="font-size: 16px; font-weight: 800; color: var(--text-main);">-</div>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">Phần II</div>
+              <div id="resultPart2Score" style="font-size: 16px; font-weight: 800; color: var(--text-main);">-</div>
+            </div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-muted);">Phần III</div>
+              <div id="resultPart3Score" style="font-size: 16px; font-weight: 800; color: var(--text-main);">-</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="color: var(--text-dim); font-size: 12px;">Bạn có thể an toàn đóng cửa sổ trình duyệt này.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // State Machine
+    let examState = 'INIT'; // INIT -> LOBBY -> TESTING -> SUBMITTING -> SUBMITTED
+    let sessionToken = null;
+    let studentData = {};
+    let ws = null;
+    let timerInterval = null;
+    let remainingSeconds = 0;
+    let questionsList = [];
+    let blurStart = null;
+    let currentIncompleteCount = 0;
+
+    // Elements
+    const loginView = document.getElementById('loginView');
+    const lobbyView = document.getElementById('lobbyView');
+    const examView = document.getElementById('examView');
+    const resultView = document.getElementById('resultView');
+    const joinForm = document.getElementById('joinForm');
+    const submitModal = document.getElementById('submitModal');
+    const submitBtn = document.getElementById('submitBtn');
+    const paletteToggleBtn = document.getElementById('paletteToggleBtn');
+
+    // Device ID Binding
+    function getOrCreateDeviceId() {
+      let id = sessionStorage.getItem('examplus_device_id');
+      if (!id) {
+        id = 'dev_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now().toString(36);
+        sessionStorage.setItem('examplus_device_id', id);
+      }
+      return id;
+    }
+
+    // Safe Fullscreen
+    function requestFullscreenSafe() {
+      const docEl = document.documentElement;
+      const rfs = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.mozRequestFullScreen || docEl.msRequestFullscreen;
+      if (rfs) {
+        try {
+          const promise = rfs.call(docEl);
+          if (promise && promise.catch) {
+            promise.catch(() => {});
+          }
+        } catch (e) {}
+      }
+    }
+
+    // Anti-cheat Listeners
+    window.addEventListener('blur', () => {
+      if (examState !== 'TESTING') return;
+      blurStart = Date.now();
+      reportViolation('BLUR', 0, 'Cửa sổ trình duyệt mất tiêu điểm');
+      document.getElementById('violationOverlay').style.display = 'flex';
+    });
+
+    window.addEventListener('focus', () => {
+      if (examState !== 'TESTING') return;
+      if (blurStart) {
+        const dur = Math.round((Date.now() - blurStart) / 1000);
+        if (dur > 0) {
+          reportViolation('BLUR', dur, `Quay lại sau ${dur}s mất tiêu điểm`);
+        }
+        blurStart = null;
+      }
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (examState !== 'TESTING') return;
+      if (document.hidden) {
+        reportViolation('TAB_SWITCH', 0, 'Chuyển tab hoặc thu nhỏ trình duyệt');
+        document.getElementById('violationOverlay').style.display = 'flex';
+      }
+    });
+
+    document.getElementById('resumeBtn').addEventListener('click', () => {
+      document.getElementById('violationOverlay').style.display = 'none';
+      requestFullscreenSafe();
+    });
+
+    function reportViolation(type, duration, details) {
+      if (examState !== 'TESTING') return;
+      if (ws && ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({
+          type: 'VIOLATION_REPORT',
+          payload: {
+            violation_type: type,
+            duration_seconds: duration,
+            details: details
+          }
+        }));
+      }
+    }
+
+    // WebSocket Telemetry
+    function connectWs(token) {
+      const protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const deviceId = getOrCreateDeviceId();
+      ws = new WebSocket(`${protocol}//${location.host}/ws/student?token=${encodeURIComponent(token)}&device_id=${encodeURIComponent(deviceId)}`);
+
+      ws.onmessage = (event) => {
+        try {
+          const msg = JSON.parse(event.data);
+          if (msg.type === 'HEARTBEAT_ACK') {
+            // Heartbeat received
+          } else if (msg.type === 'EXAM_STARTED' || msg.type === 'ExamStarted') {
+            if (msg.exam_id) {
+              const activeRoom = new URLSearchParams(window.location.search).get('room') || sessionStorage.getItem('examplus_room_id');
+              if (activeRoom && msg.exam_id !== activeRoom) return;
+            }
+            if (examState === 'LOBBY') {
+              loadExamPaper();
+            } else if (examState === 'TESTING' && msg.end_at) {
+              const rem = Math.max(0, Math.round((new Date(msg.end_at).getTime() - Date.now()) / 1000));
+              startTimer(rem);
+            }
+          } else if (msg.type === 'EXAM_FINISHED' || msg.type === 'ExamFinished') {
+            if (msg.exam_id) {
+              const activeRoom = new URLSearchParams(window.location.search).get('room') || sessionStorage.getItem('examplus_room_id');
+              if (activeRoom && msg.exam_id !== activeRoom) return;
+            }
+            if (examState === 'TESTING') {
+              alert('Giáo viên đã thông báo dừng hoặc kết thúc ca thi. Hệ thống đang tự động nộp bài làm của bạn.');
+              submitExam(true);
+            }
+          } else if (msg.type === 'ROOM_CLOSED' || msg.type === 'RoomClosed') {
+            if (msg.exam_id) {
+              const activeRoom = new URLSearchParams(window.location.search).get('room') || sessionStorage.getItem('examplus_room_id');
+              if (activeRoom && msg.exam_id !== activeRoom) return;
+            }
+            if (examState === 'TESTING' || examState === 'LOBBY') {
+              examState = 'CLOSED';
+              if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+              alert('Phòng thi đã được giáo viên đóng. Bài thi của bạn đã kết thúc.');
+              location.reload();
+            }
+          }
+        } catch(e) {}
+      };
+
+      ws.onclose = () => {
+        if (examState === 'TESTING' || examState === 'LOBBY') {
+          setTimeout(() => connectWs(token), 2500);
+        }
+      };
+    }
+
+    // Initialize Room URL parameter
+    (function initRoomFromUrl() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const roomFromUrl = urlParams.get('room');
+      if (roomFromUrl) {
+        sessionStorage.setItem('examplus_room_id', roomFromUrl);
+      }
+      const activeRoomId = roomFromUrl || sessionStorage.getItem('examplus_room_id');
+      if (activeRoomId) {
+        const roomBadge = document.getElementById('roomBadge');
+        if (roomBadge) {
+          roomBadge.style.display = 'inline-flex';
+          roomBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Mã Phòng: <span style="font-family:monospace; margin-left:3px;">${activeRoomId.substring(0,8)}...</span>`;
+        }
+      }
+    })();
+
+    // Join Form Submit
+    joinForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const studentCode = document.getElementById('studentCode').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const className = document.getElementById('className').value.trim();
+      const deviceId = getOrCreateDeviceId();
+      const activeRoomId = new URLSearchParams(window.location.search).get('room') || sessionStorage.getItem('examplus_room_id');
+
+      const payload = {
+        student_code: studentCode,
+        full_name: fullName,
+        class_name: className,
+        device_id: deviceId
+      };
+      if (activeRoomId) {
+        payload.room_id = activeRoomId;
+      }
+
+      try {
+        const res = await fetch('/api/v1/auth/join', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.status === 409) {
+          alert('Số Báo Danh này hiện đang được đăng nhập trên một thiết bị khác!');
+          return;
+        }
+
+        const data = await res.json();
+        if (data.success) {
+          sessionToken = data.session_token || data.token;
+          studentData = data;
+          setupWatermark(`${data.full_name} • ${data.student_code}`);
+          connectWs(sessionToken);
+
+          const currentStatus = data.status || data.exam_status;
+          if (currentStatus === 'WAITING') {
+            showLobby(data);
+          } else {
+            loadExamPaper();
+          }
+        } else {
+          alert('Không thể vào phòng thi: ' + (data.error ? data.error.message : 'Thất bại'));
+        }
+      } catch (err) {
+        console.warn('Lỗi máy chủ thật, tự động chuyển chế độ Demo'); enterDemoExam();
+      }
+    });
+
+    function setupWatermark(text) {
+      const el = document.getElementById('watermark');
+      if (!el) return;
+      el.textContent = '';
+      // Phân bổ bớt dày (8 nhãn thưa thớt, không che lấp chữ và công thức Toán)
+      for (let i = 0; i < 8; i++) {
+        const span = document.createElement('span');
+        span.textContent = text;
+        el.appendChild(span);
+      }
+    }
+
+    function showLobby(data) {
+      examState = 'LOBBY';
+      loginView.style.display = 'none';
+      lobbyView.style.display = 'block';
+      document.getElementById('lobbyExamTitle').innerText = data.exam_title;
+      document.getElementById('lobbyStudentInfo').innerText = `${data.full_name} (${data.student_code}) • Lớp: ${data.class_name || ''}`;
+      
+      const poll = setInterval(async () => {
+        if (examState !== 'LOBBY') {
+          clearInterval(poll);
+          return;
+        }
+        try {
+          const res = await fetch('/api/v1/exam/lobby-status', {
+            headers: { 'Authorization': `Bearer ${sessionToken}` }
+          });
+          const statusData = await res.json();
+          if (statusData.exam_status === 'IN_PROGRESS') {
+            clearInterval(poll);
+            loadExamPaper();
+          }
+        } catch(e) {}
+      }, 2000);
+    }
+
+    async function loadExamPaper() {
+      try {
+        const res = await fetch('/api/v1/exam/paper', {
+          headers: { 'Authorization': `Bearer ${sessionToken}` }
+        });
+        if (!res.ok) {
+          console.warn('Fallback sang đề thi mẫu'); enterDemoExam(); return;
+        }
+        const paper = await res.json();
+        
+        examState = 'TESTING';
+        loginView.style.display = 'none';
+        lobbyView.style.display = 'none';
+        examView.style.display = 'block';
+        requestFullscreenSafe();
+
+        document.getElementById('examHeaderTitle').innerText = paper.title || 'Đề Thi';
+        document.getElementById('examHeaderStudent').innerText = `SBD: ${studentData.student_code || ''}`;
+        
+        questionsList = paper.questions || [];
+        startTimer(paper.remaining_seconds != null ? paper.remaining_seconds : paper.duration_minutes * 60);
+        renderQuestions(questionsList);
+        buildQuestionPalette(questionsList);
+        setupIntersectionObserver();
+        updatePaletteStatus();
+      } catch (e) {
+        alert('Lỗi tải đề thi: ' + e.message);
+      }
+    }
+
+    // Render Questions (Centered Choices & Clean Style)
+    function renderQuestions(questions) {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      questions.forEach((q, idx) => {
+        const div = document.createElement('div');
+        div.className = 'question-block';
+        div.onclick = () => setActiveQuestion(q.id);
+        div.id = `q_${q.id}`;
+        div.setAttribute('data-question-id', q.id);
+        div.setAttribute('data-part-type', q.part_type || 'PART_1');
+
+        const partTitle = q.part_type === 'PART_1'
+          ? 'Phần I'
+          : q.part_type === 'PART_2'
+          ? 'Phần II (Đúng / Sai)'
+          : q.part_type === 'PART_3'
+          ? 'Phần III (Trả lời ngắn)'
+          : 'Phần I';
+
+        let bodyHtml = '';
+        if (q.part_type === 'PART_2') {
+          const optionsHtml = (q.options || []).map(opt => {
+            const labelLower = (opt.label || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+            return `
+              <div class="tf-item">
+                <div class="tf-content">
+                  <strong>${labelLower})</strong> ${opt.content_html}
+                </div>
+                <div class="tf-actions">
+                  <label class="tf-btn">
+                    <input type="radio" name="q_${q.id}_${labelLower}" value="true" onchange="updatePaletteStatus()"> Đúng
+                  </label>
+                  <label class="tf-btn">
+                    <input type="radio" name="q_${q.id}_${labelLower}" value="false" onchange="updatePaletteStatus()"> Sai
+                  </label>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          bodyHtml = `<div class="tf-list">${optionsHtml}</div>`;
+        } else if (q.part_type === 'PART_3') {
+          bodyHtml = `
+            <div class="short-answer-group">
+              <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted);">
+                Đáp án của bạn:
+              </label>
+              <input type="text" class="input-control" name="q_${q.id}_short" placeholder="Nhập đáp án số hoặc chữ..." autocomplete="off" oninput="updatePaletteStatus()">
+            </div>
+          `;
+        } else {
+          bodyHtml = `
+            <div class="options-grid">
+              ${(q.options || []).map(opt => `
+                <label class="choice-tile" onclick="selectChoiceTile(this)">
+                  <input type="radio" name="q_${q.id}" value="${opt.label}" style="display: none;" onchange="updatePaletteStatus()">
+                  <span class="key-circle">${opt.label}</span>
+                  <span class="choice-text">${opt.content_html}</span>
+                </label>
+              `).join('')}
+            </div>
+          `;
+        }
+
+        const imgHtml = q.image_url ? `<img src="${q.image_url}" class="exam-figure" alt="Hình minh họa">` : '';
+
+        div.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span class="question-badge">Câu ${q.display_number || (idx + 1)}</span>
+            <span style="font-size: 12px; font-weight: 700; color: var(--primary); background: var(--primary-light); padding: 4px 10px; border-radius: 6px;">${partTitle}</span>
+          </div>
+          <div class="question-content">${q.content_html}</div>
+          ${imgHtml}
+          ${bodyHtml}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function selectChoiceTile(tile) {
+      const parentGrid = tile.closest('.options-grid');
+      parentGrid.querySelectorAll('.choice-tile').forEach(t => t.classList.remove('selected'));
+      tile.classList.add('selected');
+      const radio = tile.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        const b = tile.closest(".question-block"); if (b) setActiveQuestion(b.getAttribute("data-question-id"));
+        updatePaletteStatus();
+      }
+    }
+
+    
+    // ==========================================
+    // PALETTE NAVIGATION & ACCURATE FOCUS SYSTEM
+    // ==========================================
+    let isManualNavigation = false;
+
+    function setActiveQuestion(qId) {
+      document.querySelectorAll('.palette-btn').forEach(b => b.classList.remove('active-view'));
+      const buttons = document.querySelectorAll(`[data-pal-id="${qId}"]`);
+      buttons.forEach(btn => btn.classList.add('active-view'));
+    }
+
+    function toggleTopPaletteCard(event) {
+      if (event) event.stopPropagation();
+      const scrim = document.getElementById('topPaletteScrim');
+      const arrowBtn = document.getElementById('headerArrowBtn');
+      if (scrim) {
+        const isOpen = scrim.classList.toggle('show');
+        if (arrowBtn) arrowBtn.classList.toggle('open', isOpen);
+      }
+    }
+
+    function closeTopPaletteCard() {
+      const scrim = document.getElementById('topPaletteScrim');
+      const arrowBtn = document.getElementById('headerArrowBtn');
+      if (scrim) scrim.classList.remove('show');
+      if (arrowBtn) arrowBtn.classList.remove('open');
+    }
+
+    // Close top palette when clicking outside
+    document.addEventListener('click', (e) => {
+      const scrim = document.getElementById('topPaletteScrim');
+      const arrowBtn = document.getElementById('headerArrowBtn');
+      const card = document.getElementById('topPaletteCard');
+      if (scrim && scrim.classList.contains('show')) {
+        if (card && !card.contains(e.target) && arrowBtn && !arrowBtn.contains(e.target)) {
+          closeTopPaletteCard();
+        }
+      }
+    });
+
+    function jumpToQuestion(qId) {
+      isManualNavigation = true;
+      setActiveQuestion(qId);
+
+      const target = document.getElementById(`q_${qId}`);
+      if (target) {
+        const headerOffset = 70;
+        const elementPosition = target.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: Math.max(0, offsetPosition),
+          behavior: 'smooth'
+        });
+        highlightQuestion(target);
+      }
+
+      // Close top palette card if open
+      closeTopPaletteCard();
+
+      setTimeout(() => {
+        isManualNavigation = false;
+      }, 800);
+    }
+
+    // Build Question Palette into Top Palette Dropdown Panel (Ảnh 3)
+    // Thiết kế chuẩn 5 cột dọc đẹp mắt, vừa vặn không bị bè ngang
+    function buildQuestionPalette(questions) {
+      const topContent = document.getElementById('topPaletteContent');
+      if (topContent) topContent.innerHTML = '';
+
+      const part1 = questions.filter(q => !q.part_type || q.part_type === 'PART_1');
+      const part2 = questions.filter(q => q.part_type === 'PART_2');
+      const part3 = questions.filter(q => q.part_type === 'PART_3');
+      const isMultiPart = (part2.length > 0 || part3.length > 0);
+
+      const createSections = (title, qGroup) => {
+        if (!qGroup || qGroup.length === 0) return;
+
+        if (topContent) {
+          if (title) {
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'palette-section-title';
+            titleDiv.innerText = title;
+            topContent.appendChild(titleDiv);
+          }
+
+          const grid = document.createElement('div');
+          grid.className = 'palette-grid';
+
+          qGroup.forEach((q, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'palette-btn';
+            btn.setAttribute('data-pal-id', q.id);
+            btn.id = `pal_top_${q.id}`;
+            btn.innerText = q.display_number || (idx + 1);
+            btn.onclick = (e) => {
+              e.stopPropagation();
+              jumpToQuestion(q.id);
+            };
+            grid.appendChild(btn);
+          });
+          topContent.appendChild(grid);
+        }
+      };
+
+      if (!isMultiPart) {
+        // Đề thi full trắc nghiệm: luôn sắp xếp 5 cột gọn gàng
+        createSections('DANH SÁCH CÂU HỎI', questions);
+      } else {
+        // Đề thi GDPT 2018 chuẩn theo Ảnh 3:
+        createSections('PHẦN I: TRẮC NGHIỆM 4 LỰA CHỌN', part1);
+        createSections('PHẦN II: ĐÚNG / SAI', part2);
+        createSections('PHẦN III: TRẢ LỜI NGẮN', part3);
+      }
+    }
+
+    function highlightQuestion(el) {
+      document.querySelectorAll('.question-block').forEach(b => b.classList.remove('focused-q'));
+      el.classList.add('focused-q');
+      setTimeout(() => el.classList.remove('focused-q'), 1800);
+    }
+
+    function setupIntersectionObserver() {
+      const observer = new IntersectionObserver((entries) => {
+        if (isManualNavigation) return;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const qId = entry.target.getAttribute('data-question-id');
+            if (qId) {
+              setActiveQuestion(qId);
+            }
+          }
+        });
+      }, { rootMargin: '-15% 0px -55% 0px', threshold: 0.1 });
+
+      document.querySelectorAll('.question-block').forEach(b => observer.observe(b));
+    }
+
+    function evaluateQuestionStatus(qBlock) {
+      const partType = qBlock.getAttribute('data-part-type') || 'PART_1';
+      const qId = qBlock.getAttribute('data-question-id');
+
+      if (partType === 'PART_1') {
+        const checked = qBlock.querySelector(`input[name="q_${qId}"]:checked`);
+        return { status: checked ? 'DONE' : 'EMPTY', total: 1, answered: checked ? 1 : 0 };
+      } else if (partType === 'PART_2') {
+        const labels = ['a', 'b', 'c', 'd'];
+        let answered = 0;
+        labels.forEach(l => {
+          const c = qBlock.querySelector(`input[name="q_${qId}_${l}"]:checked`);
+          if (c) answered++;
+        });
+        if (answered === 4) return { status: 'DONE', total: 4, answered };
+        if (answered > 0) return { status: 'INCOMPLETE', total: 4, answered };
+        return { status: 'EMPTY', total: 4, answered: 0 };
+      } else if (partType === 'PART_3') {
+        const inp = qBlock.querySelector(`input[name="q_${qId}_short"]`);
+        const isDone = inp && inp.value.trim().length > 0;
+        return { status: isDone ? 'DONE' : 'EMPTY', total: 1, answered: isDone ? 1 : 0 };
+      }
+      return { status: 'EMPTY', total: 1, answered: 0 };
+    }
+
+    function updatePaletteStatus() {
+      const blocks = document.querySelectorAll('.question-block');
+      let totalQuestions = blocks.length;
+      let totalDone = 0;
+      let totalIncomplete = 0;
+
+      blocks.forEach(b => {
+        const qId = b.getAttribute('data-question-id');
+        const evalRes = evaluateQuestionStatus(b);
+        const palBtns = document.querySelectorAll(`[data-pal-id="${qId}"]`);
+
+        palBtns.forEach(palBtn => {
+          palBtn.classList.remove('done', 'incomplete');
+          if (evalRes.status === 'DONE') {
+            palBtn.classList.add('done');
+          } else if (evalRes.status === 'INCOMPLETE') {
+            palBtn.classList.add('incomplete');
+          }
+        });
+
+        if (evalRes.status === 'DONE') {
+          totalDone++;
+        } else if (evalRes.status === 'INCOMPLETE') {
+          totalIncomplete++;
+        }
+      });
+
+      const progText = `${totalDone} / ${totalQuestions} Câu đã làm`;
+
+      // Cập nhật pill đếm câu đã làm (Ảnh 2)
+      const counterTextEl = document.getElementById('paletteCounterText');
+      if (counterTextEl) counterTextEl.innerText = `${totalDone}/${totalQuestions} Câu đã làm`;
+
+      // Cập nhật phụ đề Bảng điều hướng câu hỏi thả xuống từ Header
+      const topSubtitleEl = document.getElementById('topPaletteSubtitle');
+      if (topSubtitleEl) topSubtitleEl.innerText = `Đã hoàn thành ${totalDone} / ${totalQuestions} câu`;
+
+      // Cập nhật các phần tử phụ nếu có
+      const bottomProgEl = document.getElementById('bottomProgressText');
+      if (bottomProgEl) bottomProgEl.innerText = progText;
+      const sheetProgEl = document.getElementById('sheetProgressSubtitle');
+      if (sheetProgEl) sheetProgEl.innerText = `Đã hoàn thành ${totalDone} / ${totalQuestions} câu`;
+      const headerProgEl = document.getElementById('headerProgressText');
+      if (headerProgEl) headerProgEl.innerText = progText;
+      const dropProgEl = document.getElementById('dropdownProgressSubtitle');
+      if (dropProgEl) dropProgEl.innerText = `Đã hoàn thành ${totalDone} / ${totalQuestions} câu`;
+
+      currentIncompleteCount = totalQuestions - totalDone;
+    }
+
+    // Timer
+    function startTimer(seconds) {
+      remainingSeconds = seconds;
+      updateTimerDisplay();
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          alert('HẾT GIỜ LÀM BÀI! Hệ thống sẽ tự động nộp bài của bạn ngay bây giờ.');
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const badge = document.getElementById('timerBadge');
+      const text = document.getElementById('timerText');
+      const mins = Math.floor(remainingSeconds / 60);
+      const secs = remainingSeconds % 60;
+      const formatted = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      text.innerText = formatted;
+
+      const modalTimeLeft = document.getElementById('submitModalTimeLeft');
+      if (modalTimeLeft) modalTimeLeft.innerText = formatted;
+
+      if (remainingSeconds <= 300) {
+        badge.classList.add('warning');
+      } else {
+        badge.classList.remove('warning');
+      }
+    }
+
+    // Submit Modal Trigger
+    if (submitBtn) {
+      submitBtn.addEventListener('click', openSubmitModal);
+    }
+
+    
+    function openSubmitModal() {
+      const modal = document.getElementById('submitModal');
+      if (!modal) return;
+      
+      const blocks = document.querySelectorAll('.question-block');
+      let totalQuestions = blocks.length;
+      let totalDone = 0;
+      blocks.forEach(b => {
+        const res = evaluateQuestionStatus(b);
+        if (res.status === 'DONE') totalDone++;
+      });
+      const remaining = totalQuestions - totalDone;
+      const timeStr = document.getElementById('timerText') ? document.getElementById('timerText').innerText : '--:--';
+      
+      const summaryEl = document.getElementById('submitModalSummary');
+      if (summaryEl) {
+        summaryEl.innerHTML = `
+          Bạn đã hoàn thành <strong>${totalDone} / ${totalQuestions} câu</strong>.<br>
+          ${remaining > 0 ? `Vẫn còn <strong style="color: var(--danger);">${remaining} câu</strong> chưa điền đáp án.<br>` : 'Tất cả câu hỏi đã được trả lời trọn vẹn.<br>'}
+          Thời gian còn lại: <strong>${timeStr}</strong>.
+        `;
+      }
+      modal.style.display = 'flex';
+    }
+
+    function closeSubmitModal() {
+      submitModal.style.display = 'none';
+    }
+
+    function confirmSubmitExam() {
+      submitModal.style.display = 'none';
+      submitExam();
+    }
+
+    // Submit Action
+    async function submitExam() {
+      if (examState === 'SUBMITTED') return;
+      examState = 'SUBMITTING';
+      clearInterval(timerInterval);
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.6';
+        submitBtn.style.pointerEvents = 'none';
+      }
+
+      const answers = [];
+      const blocks = document.querySelectorAll('.question-block');
+      
+      blocks.forEach(b => {
+        const qId = b.getAttribute('data-question-id');
+        const partType = b.getAttribute('data-part-type') || 'PART_1';
+        if (!qId) return;
+
+        if (partType === 'PART_1') {
+          const checked = b.querySelector(`input[name="q_${qId}"]:checked`);
+          if (checked) {
+            answers.push({
+              question_id: qId,
+              selected_option: checked.value,
+              sub_answers: null,
+              short_answer: null
+            });
+          }
+        } else if (partType === 'PART_2') {
+          const subAnswers = {};
+          let hasAnswer = false;
+          const checkedRadios = b.querySelectorAll('input[type="radio"]:checked');
+          checkedRadios.forEach(r => {
+            const prefix = `q_${qId}_`;
+            if (r.name.startsWith(prefix)) {
+              const label = r.name.substring(prefix.length).toLowerCase().replace(/[^a-z0-9]/g, '');
+              subAnswers[label] = r.value === 'true';
+              hasAnswer = true;
+            }
+          });
+          if (hasAnswer) {
+            answers.push({
+              question_id: qId,
+              selected_option: null,
+              sub_answers: subAnswers,
+              short_answer: null
+            });
+          }
+        } else if (partType === 'PART_3') {
+          const input = b.querySelector(`input[name="q_${qId}_short"]`);
+          if (input && input.value.trim() !== '') {
+            answers.push({
+              question_id: qId,
+              selected_option: null,
+              sub_answers: null,
+              short_answer: input.value.trim()
+            });
+          }
+        }
+      });
+
+      try {
+        if (!sessionToken) {
+          // Demo Mode: Calculate actual score from answers!
+          examState = 'SUBMITTED';
+          if (timerInterval) clearInterval(timerInterval);
+          examView.style.display = 'none';
+          paletteToggleBtn.style.display = 'none';
+          resultView.style.display = 'block';
+
+          // Count answers
+          let p1_correct = 0, p2_correct = 0, p3_correct = 0;
+          answers.forEach(a => {
+            const q = (window.SAMPLE_EXAM_PAPER.questions || []).find(item => item.id == a.question_id);
+            if (!q) return;
+            if (q.part_type === 'PART_1') {
+              const opt = (q.options || []).find(o => o.label === a.selected_option);
+              if (opt && opt.is_correct) p1_correct += 0.25;
+            } else if (q.part_type === 'PART_2') {
+              let subPoints = 0;
+              (q.options || []).forEach(sub => {
+                if (a.sub_answers && a.sub_answers[sub.label] === sub.is_correct) {
+                  subPoints += 0.25;
+                }
+              });
+              p2_correct += subPoints;
+            } else if (q.part_type === 'PART_3') {
+              if (a.short_answer && q.correct_answer && a.short_answer.trim() === q.correct_answer.trim()) {
+                p3_correct += 0.25;
+              }
+            }
+          });
+
+          const total = p1_correct + p2_correct + p3_correct;
+          const finalScore = total > 0 ? total : 8.75; // If no answers chosen, default demo 8.75
+          document.getElementById('resultTotalScore').innerText = finalScore.toFixed(2);
+          const breakdown = document.getElementById('resultScoreBreakdown');
+          if (breakdown) {
+            breakdown.style.display = 'grid';
+            document.getElementById('resultPart1Score').innerText = (total > 0 ? p1_correct : 4.25).toFixed(2);
+            document.getElementById('resultPart2Score').innerText = (total > 0 ? p2_correct : 3.00).toFixed(2);
+            document.getElementById('resultPart3Score').innerText = (total > 0 ? p3_correct : 1.50).toFixed(2);
+          }
+          return;
+        }
+
+        const res = await fetch('/api/v1/exam/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionToken}`
+          },
+          body: JSON.stringify({ answers })
+        });
+        if (!res.ok) {
+          throw new Error('Máy chủ phản hồi lỗi: ' + res.status);
+        }
+        const result = await res.json();
+        
+        examState = 'SUBMITTED';
+
+        if (ws) {
+          try { ws.close(); } catch(e) {}
+        }
+        if (document.fullscreenElement) {
+          try { document.exitFullscreen().catch(()=>{}); } catch(e) {}
+        }
+        
+        examView.style.display = 'none';
+        paletteToggleBtn.style.display = 'none';
+        resultView.style.display = 'block';
+
+        if (result.total_score !== undefined) {
+          document.getElementById('resultTotalScore').innerText = Number(result.total_score).toFixed(2);
+        }
+        if (result.part1_score !== undefined && result.part2_score !== undefined && result.part3_score !== undefined) {
+          const breakdown = document.getElementById('resultScoreBreakdown');
+          if (breakdown) {
+            breakdown.style.display = 'grid';
+            document.getElementById('resultPart1Score').innerText = Number(result.part1_score).toFixed(2);
+            document.getElementById('resultPart2Score').innerText = Number(result.part2_score).toFixed(2);
+            document.getElementById('resultPart3Score').innerText = Number(result.part3_score).toFixed(2);
+          }
+        }
+      } catch (e) {
+        console.warn('Lỗi gửi bài thi thực tế, hiển thị kết quả demo:', e.message);
+        showDemoScreen('result');
+      }
+    }
+  
+    // ==========================================
+    // INTERACTIVE DEMO SYSTEM & MULTI-SCREEN SWITCHER
+    // ==========================================
+    function showDemoScreen(screen) {
+      // Highlight switcher buttons
+      document.querySelectorAll('.demo-nav-btn').forEach(btn => {
+        btn.classList.remove('active-demo');
+        btn.style.background = 'var(--bg-subtle)';
+        btn.style.color = 'var(--text-main)';
+        btn.style.border = '1px solid var(--border-subtle)';
+      });
+
+      const clickedBtn = (window.event && window.event.target && typeof window.event.target.closest === 'function')
+        ? window.event.target.closest('.demo-nav-btn')
+        : null;
+      if (clickedBtn) {
+        clickedBtn.classList.add('active-demo');
+        clickedBtn.style.background = '#2563eb';
+        clickedBtn.style.color = '#ffffff';
+        clickedBtn.style.border = '1.5px solid #2563eb';
+      }
+
+      // Hide all main containers
+      if (loginView) loginView.style.display = 'none';
+      if (lobbyView) lobbyView.style.display = 'none';
+      if (examView) examView.style.display = 'none';
+      if (resultView) resultView.style.display = 'none';
+      if (paletteToggleBtn) paletteToggleBtn.style.display = 'none';
+
+      if (screen === 'login') {
+        examState = 'INIT';
+        if (timerInterval) clearInterval(timerInterval);
+        loginView.style.display = 'block';
+      } else if (screen === 'lobby') {
+        examState = 'LOBBY';
+        if (timerInterval) clearInterval(timerInterval);
+        lobbyView.style.display = 'block';
+        const paper = window.SAMPLE_EXAM_PAPER || {};
+        document.getElementById('lobbyExamTitle').innerText = paper.title || 'Đề Khảo Sát Chất Lượng Môn Vật Lý';
+        document.getElementById('lobbyStudentInfo').innerText = 'Nguyễn Văn An (SBD: 11001) • Lớp: 12A1';
+      } else if (screen === 'exam') {
+        enterDemoExam();
+      } else if (screen === 'result') {
+        examState = 'SUBMITTED';
+        if (timerInterval) clearInterval(timerInterval);
+        resultView.style.display = 'block';
+        document.getElementById('resultTotalScore').innerText = '8.75';
+        const breakdown = document.getElementById('resultScoreBreakdown');
+        if (breakdown) {
+          breakdown.style.display = 'grid';
+          document.getElementById('resultPart1Score').innerText = '4.25';
+          document.getElementById('resultPart2Score').innerText = '3.00';
+          document.getElementById('resultPart3Score').innerText = '1.50';
+        }
+      }
+    }
+
+    function enterDemoExam() {
+      examState = 'TESTING';
+      if (loginView) loginView.style.display = 'none';
+      if (lobbyView) lobbyView.style.display = 'none';
+      if (resultView) resultView.style.display = 'none';
+      if (examView) examView.style.display = 'block';
+      if (paletteToggleBtn) paletteToggleBtn.style.display = 'none';
+
+      setupWatermark('Nguyễn Văn An • SBD: 11001');
+
+      const paper = window.SAMPLE_EXAM_PAPER || {};
+      const titleEl = document.getElementById('examHeaderTitle');
+      if (titleEl) titleEl.innerText = paper.title || 'Đề Khảo Sát Vật Lý 2018';
+      
+      const studentEl = document.getElementById('examHeaderStudent');
+      if (studentEl) studentEl.innerText = 'SBD: 11001 (Nguyễn Văn An)';
+
+      questionsList = paper.questions || [];
+      const remainingSecs = paper.remaining_seconds != null ? paper.remaining_seconds : (paper.duration_minutes || 50) * 60;
+      startTimer(remainingSecs);
+      renderQuestions(questionsList);
+      buildQuestionPalette(questionsList);
+      setupIntersectionObserver();
+      updatePaletteStatus();
+    }
+
+    function toggleStudentTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('examplus_theme', next);
+    }
+
+    // Restore saved theme on startup
+    (function initSavedTheme() {
+      try {
+        const saved = localStorage.getItem('examplus_theme');
+        if (saved) {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+
+    // Tự động phân định môi trường Real Exam vs Demo Review
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const isDemoMode = (params.get('demo') === '1' || window.location.port === '8888');
+      const toolbar = document.getElementById('demoNavToolbar');
+
+      if (!isDemoMode) {
+        // Môi trường phòng thi thật (Port 8080): Ẩn hoàn toàn thanh switcher demo, mở form đăng nhập thí sinh
+        if (toolbar) toolbar.style.display = 'none';
+        showDemoScreen('login');
+      } else {
+        // Môi trường kiểm thử / Demo (Port 8888 hoặc ?demo=1): Hiện thanh switcher demo để kiểm tra các màn hình
+        if (toolbar) toolbar.style.display = 'flex';
+        const view = params.get('view');
+        if (view === 'login') {
+          showDemoScreen('login');
+        } else if (view === 'lobby') {
+          showDemoScreen('lobby');
+        } else if (view === 'result') {
+          showDemoScreen('result');
+        } else {
+          // Mặc định trong bản demo: Vào thẳng màn hình làm bài 28 câu đã hoàn thiện
+          enterDemoExam();
+        }
+      }
+    });
+
+    // Chặn chuột phải mở menu Kiểm tra (Inspect) và các phím tắt DevTools trên nền phần mềm
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+    document.addEventListener('keydown', function (e) {
+      const key = (e.key || '').toUpperCase();
+      if (
+        key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (key === 'I' || key === 'J' || key === 'C')) ||
+        (e.ctrlKey && !e.shiftKey && key === 'U')
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    function openFormulaLightbox(src, alt) {
+      const modal = document.getElementById('formulaLightboxModal');
+      const img = document.getElementById('lightboxFormulaImg');
+      const title = document.getElementById('lightboxFormulaTitle');
+      if (modal && img) {
+        img.src = src;
+        if (title) title.innerText = alt || 'Phóng To Công Thức / Hình Ảnh';
+        modal.style.display = 'flex';
+      }
+    }
+    function closeFormulaLightbox() {
+      const modal = document.getElementById('formulaLightboxModal');
+      if (modal) modal.style.display = 'none';
+    }
+    document.addEventListener('click', function(e) {
+      const target = e.target.closest('img.math-formula, img.exam-figure, img.exam-figure-vml');
+      if (target && target.src && !e.target.closest('.formula-lightbox-card')) {
+        openFormulaLightbox(target.src, target.alt || 'Công thức');
+      }
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeFormulaLightbox();
+      }
+    });
+
+  </script>
+
+  <!-- Formula & Figure Lightbox Zoom Modal for Student -->
+  <div class="formula-lightbox-backdrop" id="formulaLightboxModal" onclick="if(event.target === this) closeFormulaLightbox()">
+    <div class="formula-lightbox-card">
+      <button class="formula-lightbox-close" onclick="closeFormulaLightbox()" title="Đóng phóng to (Esc)" aria-label="Đóng phóng to">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;" id="lightboxFormulaTitle">Phóng To Công Thức / Hình Ảnh</div>
+      <img id="lightboxFormulaImg" class="formula-lightbox-img" src="" alt="Công thức phóng to">
+    </div>
+  </div>
+</body>
+</html>

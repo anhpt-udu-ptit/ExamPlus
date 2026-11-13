@@ -1,0 +1,549 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --color-cloud: rgba(255, 255, 255, 0.92);
+    --color-cloud-subtle: #f8fafc;
+    --color-ink: #0f172a;
+    --color-edge: #e2e8f0;
+    --color-mist: #475569;
+    --color-signal: #2563eb;
+    --color-citrus: #f97316;
+    --color-meadow: #10b981;
+    --card-bg: rgba(255, 255, 255, 0.92);
+    --card-border: rgba(226, 232, 240, 0.9);
+    --body-bg: #f8fafc;
+    --text-main: #0f172a;
+    --text-sub: #475569;
+    --bg-overlay-light: 1;
+    --bg-overlay-dark: 0;
+    
+    /* Uiverse sweet-dolphin-36 Dense Rain Matrix (Light Mode - Clearer & Defined) */
+    --rain-c: rgba(37, 99, 235, 0.65);
+    --rain-bg: #f8fafc;
+    --rain-mask-color: rgba(248, 250, 252, 0.80);
+    --rain-blur: 0.3em;
+    --rain-brightness: 1.05;
+    --rain-opacity: 0.90;
+    --hero-card-bg: rgba(255, 255, 255, 0.80);
+    --hero-card-border: rgba(226, 232, 240, 0.85);
+    --hero-card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --grid-line-color: rgba(15, 23, 42, 0.05);
+    --ambient-glow-color: rgba(59, 130, 246, 0.12);
+    --ambient-glow-secondary: rgba(147, 197, 253, 0.22);
+    --btn-primary-bg: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    --btn-primary-edge: #1d4ed8;
+    --btn-secondary-bg: rgba(255, 255, 255, 0.88);
+    --btn-secondary-border: rgba(203, 213, 225, 0.85);
+    --btn-secondary-hover: #ffffff;
+  }
+
+  html.dark,
+  html[data-theme="dark"] {
+    --color-cloud: rgba(12, 18, 34, 0.88);
+    --color-cloud-subtle: #080d1a;
+    --color-ink: #f8fafc;
+    --color-edge: rgba(255, 255, 255, 0.12);
+    --color-mist: #cbd5e1;
+    --color-signal: #3b82f6;
+    --color-citrus: #fb923c;
+    --color-meadow: #34d399;
+    --card-bg: rgba(12, 18, 34, 0.88);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --body-bg: #070a13;
+    --text-main: #f8fafc;
+    --text-sub: #cbd5e1;
+    --bg-overlay-light: 0;
+    --bg-overlay-dark: 1;
+    
+    /* Uiverse sweet-dolphin-36 Dense Rain Matrix (Dark Mode - Clearer, Luminous & Balanced) */
+    --rain-c: #38bdf8;
+    --rain-bg: #060913;
+    --rain-mask-color: rgba(6, 10, 22, 0.74);
+    --rain-blur: 0.45em;
+    --rain-brightness: 2.8;
+    --rain-opacity: 0.92;
+    --hero-card-bg: rgba(10, 15, 29, 0.72);
+    --hero-card-border: rgba(255, 255, 255, 0.08);
+    --hero-card-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    --grid-line-color: rgba(255, 255, 255, 0.045);
+    --ambient-glow-color: rgba(37, 99, 235, 0.18);
+    --ambient-glow-secondary: rgba(99, 102, 241, 0.12);
+    --btn-primary-bg: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    --btn-primary-edge: #1e40af;
+    --btn-secondary-bg: rgba(15, 23, 42, 0.8);
+    --btn-secondary-border: rgba(255, 255, 255, 0.12);
+    --btn-secondary-hover: rgba(30, 41, 59, 0.9);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    background-color: var(--body-bg);
+    overflow-x: hidden;
+    max-width: 100vw;
+    max-width: 100vw;
+  }
+
+  body {
+    background-color: transparent;
+    color: var(--text-main);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+/* ==========================================================================
+   UIVERSE SWEET-DOLPHIN-36 RAIN MATRIX PATTERN (DUAL LIGHT/DARK ENGINE)
+   ========================================================================== */
+.bg-vector-pattern {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/*
+More comprehensive version at shenanigans.shoghisimon.ca/collection/css-rain-bg/
+ */
+/* Micro-Aperture Matrix Screen (4px grid, 1px pinhole) */
+.uiv-rain-dense::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  backdrop-filter: blur(var(--rain-blur)) brightness(var(--rain-brightness));
+  -webkit-backdrop-filter: blur(var(--rain-blur)) brightness(var(--rain-brightness));
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    #0000 0,
+    #0000 1.4px,
+    var(--rain-mask-color) 1.4px
+  );
+  background-size: 6px 6px;
+}
+
+/* Dense Micro-Matrix Rain Container (Continuous background flow) */
+.uiv-rain-dense {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--rain-bg);
+  background-image:
+    /* Column 1 (x: 20px) */
+    radial-gradient(2.5px 70px at 20px 180px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 20px 90px, var(--rain-c) 100%, #0000 150%),
+    /* Column 2 (x: 60px) */
+    radial-gradient(2.5px 85px at 60px 220px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 60px 110px, var(--rain-c) 100%, #0000 150%),
+    /* Column 3 (x: 100px) */
+    radial-gradient(2.5px 60px at 100px 140px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 100px 70px, var(--rain-c) 100%, #0000 150%),
+    /* Column 4 (x: 140px) */
+    radial-gradient(2.5px 95px at 140px 260px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 140px 130px, var(--rain-c) 100%, #0000 150%),
+    /* Column 5 (x: 180px) */
+    radial-gradient(2.5px 75px at 180px 190px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 180px 95px, var(--rain-c) 100%, #0000 150%),
+    /* Column 6 (x: 220px) */
+    radial-gradient(2.5px 90px at 220px 240px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 220px 120px, var(--rain-c) 100%, #0000 150%),
+    /* Column 7 (x: 260px) */
+    radial-gradient(2.5px 65px at 260px 160px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 260px 80px, var(--rain-c) 100%, #0000 150%),
+    /* Column 8 (x: 300px) */
+    radial-gradient(2.5px 80px at 300px 210px, var(--rain-c), #0000),
+    radial-gradient(1.8px 1.8px at 300px 105px, var(--rain-c) 100%, #0000 150%);
+  background-size:
+    320px 240px, 320px 240px,
+    320px 260px, 320px 260px,
+    320px 200px, 320px 200px,
+    320px 280px, 320px 280px,
+    320px 220px, 320px 220px,
+    320px 270px, 320px 270px,
+    320px 210px, 320px 210px,
+    320px 250px, 320px 250px;
+  animation: uiv-rain-dense-fall 75s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes uiv-rain-dense-fall {
+  0% {
+    background-position:
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px,
+      0px 0px, 0px 0px;
+  }
+  to {
+    background-position:
+      0px 2400px, 0px 2400px,
+      0px 2600px, 0px 2600px,
+      0px 2000px, 0px 2000px,
+      0px 2800px, 0px 2800px,
+      0px 2200px, 0px 2200px,
+      0px 2700px, 0px 2700px,
+      0px 2100px, 0px 2100px,
+      0px 2500px, 0px 2500px;
+  }
+}
+.bg-ambient-spotlight {
+  position: absolute;
+  top: -160px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 100vw);
+  height: 640px;
+  background: radial-gradient(circle at 50% 35%, var(--ambient-glow-color) 0%, var(--ambient-glow-secondary) 35%, transparent 75%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* Secondary lower subtle glow */
+.bg-ambient-lower {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 90vw);
+  height: 480px;
+  background: radial-gradient(circle at 50% 50%, var(--ambient-glow-color) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(50px);
+  opacity: 0.6;
+}
+
+/* =========================================================
+   TACTILE 3D BUTTONS (DEPTH & SPRING PHYSICS)
+   ========================================================= */
+.btn-tactile-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 9999px;
+  background: var(--btn-primary-bg);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14.5px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  /* Top specular highlight + solid 3D bottom edge + soft ambient shadow */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 4px 0 var(--btn-primary-edge),
+    0 10px 20px -4px rgba(37, 99, 235, 0.42);
+  transition: 
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 200ms ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-tactile-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 6px 0 var(--btn-primary-edge),
+    0 14px 26px -4px rgba(37, 99, 235, 0.55);
+}
+
+.btn-tactile-primary:active {
+  transform: translateY(2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1.5px 0 var(--btn-primary-edge),
+    0 4px 8px -2px rgba(37, 99, 235, 0.3);
+}
+
+.btn-tactile-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 9999px;
+  background: var(--btn-secondary-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--btn-secondary-border);
+  color: var(--text-main);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 16px -8px rgba(0, 0, 0, 0.1);
+  transition: 
+    transform 140ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 140ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-tactile-secondary:hover {
+  background: var(--btn-secondary-hover);
+  border-color: var(--color-signal);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 4px 12px -2px rgba(37, 99, 235, 0.15);
+}
+
+.btn-tactile-secondary:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Tactile Control Pill (Navbar height 40px) */
+.btn-tactile-control {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  background: var(--btn-primary-bg);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13.5px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 3px 0 var(--btn-primary-edge),
+    0 6px 12px -2px rgba(37, 99, 235, 0.35);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.btn-tactile-control:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 4px 0 var(--btn-primary-edge),
+    0 8px 16px -2px rgba(37, 99, 235, 0.45);
+}
+
+.btn-tactile-control:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 0 var(--btn-primary-edge);
+}
+
+/* =========================================================
+   UIVERSE.IO CREATIVE LOADERS (https://uiverse.io/loaders)
+   ========================================================= */
+
+/* 1. UIV-EQUALIZER (Audio / Realtime packet ping telemetry) */
+.uiv-equalizer {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.uiv-equalizer span {
+  width: 2.5px;
+  background-color: var(--color-signal);
+  border-radius: 999px;
+  animation: uiv-eq-wave 1s ease-in-out infinite alternate;
+}
+
+.uiv-equalizer span:nth-child(1) { height: 45%; animation-delay: 0.1s; }
+.uiv-equalizer span:nth-child(2) { height: 100%; animation-delay: 0.35s; }
+.uiv-equalizer span:nth-child(3) { height: 65%; animation-delay: 0.55s; }
+.uiv-equalizer span:nth-child(4) { height: 85%; animation-delay: 0.2s; }
+
+@keyframes uiv-eq-wave {
+  0% { transform: scaleY(0.3); opacity: 0.5; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+/* 2. UIV-ORBIT (Orbital Status Indicator) */
+.uiv-orbit {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: inline-grid;
+  place-items: center;
+}
+
+.uiv-orbit__core {
+  width: 5px;
+  height: 5px;
+  background: var(--color-signal);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--color-signal);
+}
+
+.uiv-orbit__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px dashed rgba(37, 99, 235, 0.4);
+  animation: uiv-spin 3s linear infinite;
+}
+
+.uiv-orbit__ring::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--color-citrus);
+  box-shadow: 0 0 4px var(--color-citrus);
+}
+
+@keyframes uiv-spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* 3. UIV-RADAR (Expanding live status ping) */
+.uiv-radar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+}
+
+.uiv-radar__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.uiv-radar__ping {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: #10b981;
+  opacity: 0.75;
+  animation: uiv-ping-anim 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes uiv-ping-anim {
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* =========================================================
+   CIR-TABS BY uiverse-astronaut
+   ========================================================= */
+.cir-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 1px rgba(14, 17, 22, 0.04),
+    0 20px 40px -24px rgba(14, 17, 22, 0.18);
+}
+
+.cir-tabs__t {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-mist);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cir-tabs__t:hover {
+  color: var(--color-ink);
+}
+
+.cir-tabs__t.active {
+  background: var(--color-signal);
+  color: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(37, 99, 235, 0.1),
+    0 8px 18px -8px rgba(37, 99, 235, 0.5);
+}
+
+/* Glass Surface Utility */
+.glass-surface {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+}
+
+/* Focus Visible accessible indicator */
+*:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+}
+
+/* Accessible Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* Hero Frosted Glass Card Utility */
+.hero-frosted-card {
+  position: relative;
+  border-radius: 28px;
+  background: var(--hero-card-bg);
+  border: 1px solid var(--hero-card-border);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  box-shadow: var(--hero-card-shadow);
+}

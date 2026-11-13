@@ -1,0 +1,73 @@
+GIẤY PHÉP MÃ NGUỒN EXAMPLUS - PHIÊN BẢN GIÁO DỤC PHI THƯƠNG MẠI
+(EXAMPLUS PUBLIC NON-COMMERCIAL EDUCATIONAL LICENSE - VERSION 1.0)
+
+Bản quyền (c) 2026 Phạm Tuấn Anh và Nhóm Phát Triển ExamPlus.
+Mọi quyền được bảo lưu (All Rights Reserved).
+
+MÃ NGUỒN CÔNG KHAI · CHỈ SỬ DỤNG CHO GIÁO DỤC PHI THƯƠNG MẠI
+(PUBLIC SOURCE CODE · STRICTLY FOR NON-COMMERCIAL EDUCATIONAL USE ONLY)
+
+--------------------------------------------------------------------------------
+1. CẤP QUYỀN SỬ DỤNG PHI THƯƠNG MẠI (GRANT OF RIGHTS)
+--------------------------------------------------------------------------------
+Theo các điều khoản của Giấy phép này, Tác giả/Chủ sở hữu cấp cho bất kỳ cá nhân,
+giáo viên, học sinh, trường học hoặc tổ chức giáo dục phi lợi nhuận quyền miễn phí:
+  a) Tải về, cài đặt, chạy và sử dụng phần mềm ExamPlus trên máy tính cá nhân hoặc
+     hệ thống phòng máy để phục vụ trực tiếp cho hoạt động giảng dạy, học tập, ôn
+     luyện và tổ chức thi trắc nghiệm hoàn toàn KHÔNG THU PHÍ.
+  b) Tạo các bản sao kỹ thuật cục bộ cần thiết để phục vụ duy nhất cho việc cài
+     đặt, vận hành hợp lệ nêu trên.
+  c) Xem mã nguồn và thực hiện tính năng fork kho lưu trữ trên GitHub để học tập,
+     nghiên cứu khoa học kỹ thuật cá nhân theo Điều khoản Nền tảng GitHub (GitHub
+     Terms of Service).
+
+--------------------------------------------------------------------------------
+2. CÁC HÀNH VI BỊ NGHIÊM CẤM (STRICT COMMERCIAL PROHIBITIONS)
+--------------------------------------------------------------------------------
+Nghiêm cấm tuyệt đối mọi hành vi sử dụng trực tiếp hoặc gián tiếp phần mềm, mã nguồn,
+giao diện, thuật toán hoặc tài liệu đi kèm của ExamPlus vào bất kỳ mục đích thương
+mại nào trong mọi lĩnh vực, bao gồm nhưng không giới hạn ở:
+  a) Bán, bán lại, cho thuê, cấp quyền phụ (sublicense), thu phí tải về hoặc phân
+     phối lại phần mềm hoặc bất kỳ phần nào của phần mềm dưới mọi hình thức.
+  b) Cung cấp ExamPlus dưới dạng dịch vụ trả phí (SaaS), nền tảng thi có thu phí,
+     hoặc dịch vụ hỗ trợ kỹ thuật có thu tiền.
+  c) Đóng gói, gộp hoặc nhúng một phần hay toàn bộ mã nguồn hoặc tệp thực thi của
+     ExamPlus vào sản phẩm, phần mềm thương mại của bên thứ ba.
+  d) Sử dụng phần mềm trong hoạt động vận hành, kinh doanh của doanh nghiệp, công ty
+     hoặc đơn vị tư nhân nhằm tạo ra lợi nhuận hoặc doanh thu quảng cáo.
+  e) Sử dụng phần mềm để tổ chức các lớp học thêm, trung tâm luyện thi, khóa đào tạo
+     hoặc kỳ khảo thí thuộc các chương trình có thu học phí hoặc phí dịch vụ dưới
+     bất kỳ hình thức nào.
+
+Quy tắc cấm thương mại nêu trên áp dụng đối với tất cả các bên, không phụ thuộc vào
+việc phần mềm ExamPlus được cung cấp miễn phí và bất kể loại hình pháp lý của đơn vị
+sử dụng (cá nhân, trung tâm tư nhân, doanh nghiệp hay tổ chức).
+
+--------------------------------------------------------------------------------
+3. BẢO LƯU QUYỀN SỞ HỮU & PHÂN PHỐI (RESERVATION OF RIGHTS)
+--------------------------------------------------------------------------------
+  a) Chủ sở hữu bản quyền bảo lưu độc quyền đối với mọi quyền sửa đổi, tạo bản phái
+     sinh, đăng tải lại, biên dịch và phân phối các bản phát hành nhị phân công khai,
+     trong phạm vi tối đa được pháp luật hiện hành và các điều khoản nền tảng bảo hộ.
+  b) Bất kỳ ai muốn sử dụng phần mềm hoặc mã nguồn cho mục đích thương mại, hoặc mở
+     rộng quyền cấp phép, BẮT BUỘC phải nhận được sự đồng ý bằng văn bản có chữ ký
+     của Chủ sở hữu bản quyền. Mọi liên hệ thương mại: examplus.edu@gmail.com.
+
+--------------------------------------------------------------------------------
+4. THÀNH PHẦN VÀ THƯ VIỆN BÊN THỨ BA (THIRD-PARTY NOTICES)
+--------------------------------------------------------------------------------
+ExamPlus sử dụng một số thư viện mã nguồn mở độc lập (như Rust crates, Tokio, Axum,
+SQLite/Rusqlite, Tao, Wry, Lucide Icons, Tailwind CSS). Các thư viện này vẫn thuộc bản
+quyền của các tác giả tương ứng và được điều chỉnh theo giấy phép gốc của chúng
+(MIT, Apache 2.0, ISC, zlib/libpng, BSD). Giấy phép này chỉ áp dụng cho phần mã nguồn,
+thiết kế, thuật toán và tài liệu do Phạm Tuấn Anh và Nhóm Phát Triển ExamPlus sáng tạo.
+Các bản phát hành trước đây từng công bố theo MIT (nếu có) được giữ nguyên quyền đã cấp
+cho đúng phiên bản đó; phiên bản hiện tại và tương lai áp dụng giấy phép này.
+
+--------------------------------------------------------------------------------
+5. TUYÊN BỐ MIỄN TRỪ TRÁCH NHIỆM (DISCLAIMER OF WARRANTY)
+--------------------------------------------------------------------------------
+PHẦN MỀM ĐƯỢC CUNG CẤP "NGUYÊN TRẠNG" (AS IS), KHÔNG CÓ BẤT KỲ SỰ BẢO ĐẢM NÀO, DÙ RÕ
+RÀNG HAY NGỤ Ý. CHỦ SỞ HỮU BẢN QUYỀN VÀ CÁC CỘNG SỰ KHÔNG CHỊU TRÁCH NHIỆM VỀ BẤT KỲ
+KHIẾU NẠI, THIỆT HẠI HOẶC TRÁCH NHIỆM PHÁP LÝ NÀO PHÁT SINH TỪ HOẶC LIÊN QUAN ĐẾN VIỆC
+SỬ DỤNG HOẶC KHÔNG THỂ SỬ DỤNG PHẦN MỀM.
